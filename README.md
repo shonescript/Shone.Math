@@ -2,7 +2,9 @@
 ## A generic-types math library for .NET Framework 4.0 and .NET Core 3.1/5.0
 
 Create a dotnet generic math type is never easy. 
+
 This libray wrappers all math methods from Math,MathF,Convert and number classes into one generic Math\<T\> class.
+
 With the Math\<T\> class from Shone.Math, you can write .NET generic math codes EASILY and HAPPILY!
 
 ### 0. Support all system number types in generic:
@@ -14,12 +16,12 @@ With the Math\<T\> class from Shone.Math, you can write .NET generic math codes 
 ``` csharp
     using Shone;                       // import Shone namespace
 
-    var d = Math\<double\>.Pow(5,3);     // use just like Math.Pow, but it is generic now!
+    var d = Math<double>.Pow(5,3);     // use just like Math.Pow, but it is generic now!
 ```
 
 ### 2. Support all the system methods by delegates:
 ``` csharp
-    var func = Math\<double\>.Pow;    // it is a Func<double,double,double>
+    var func = Math<double>.Pow;    // it is a Func<double,double,double>
 ```
 
 ### 3. Support dot method extension:
