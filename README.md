@@ -1,5 +1,5 @@
 # Shone.Math
-A generic-types math library for .NET Standard 2.0
+A generic-types math library for .NET Framework 4.0 and .NET Core 3.1/5.0
 
 Create a dotnet generic math type is never easy. 
 This libray wrappers all math methods from Math,MathF,Convert and number classes into one generic Math\<T\> class.
