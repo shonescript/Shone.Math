@@ -1,6 +1,10 @@
 # Shone.Math
 A generic-types math library for .NET Standard 2.0
 
+0. Support all system number types in generic:
+
+bool, sbyte, byte, short, ushort, char, int, uint, long, ulong, float, double, decimal
+
 1. Very easy to use:
 
 using Shone;                       // import Shone namespace
