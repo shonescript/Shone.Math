@@ -7,7 +7,7 @@
     <ProjectGuid>{69A628B3-B5AC-4AB6-AC68-96F6AF0592C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Shone.Math.Net4</RootNamespace>
+    <RootNamespace>Shone</RootNamespace>
     <AssemblyName>Shone.Math.Net4</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

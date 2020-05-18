@@ -1,10 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Shone</RootNamespace>
+    <AssemblyName>Shone.Math</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Shone.Math.NETCore</PackageId>
+    <Authors>Shone</Authors>
+    <Description>A generic math library for .NET(Core) 5</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;Net5</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;Net5</DefineConstants>
   </PropertyGroup>
 
@@ -13,14 +23,17 @@
     <Compile Remove="Src\bin\**" />
     <Compile Remove="Src\obj\**" />
     <Compile Remove="Src\Properties\**" />
+    <Compile Remove="Test\**" />
     <EmbeddedResource Remove="Properties\**" />
     <EmbeddedResource Remove="Src\bin\**" />
     <EmbeddedResource Remove="Src\obj\**" />
     <EmbeddedResource Remove="Src\Properties\**" />
+    <EmbeddedResource Remove="Test\**" />
     <None Remove="Properties\**" />
     <None Remove="Src\bin\**" />
     <None Remove="Src\obj\**" />
     <None Remove="Src\Properties\**" />
+    <None Remove="Test\**" />
   </ItemGroup>
 
   <ItemGroup>

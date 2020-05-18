@@ -20,6 +20,8 @@ namespace Shone
         public static T Zero;
         public static T One;
         public static T MinusOne;
+        public static T PI;
+        public static T E;
 
         public static Func<T, bool> IsNormal = xTrue;
         public static Func<T, bool> IsSubnormal = xFalse;
@@ -129,17 +131,25 @@ namespace Shone
         static Math()
         {
             var fields = TheType.GetFields(MyReflection.PublicStatic);
+            var bFloat = NumType == MyType.Single;
 #if Net5
-            if (NumType == MyType.Single) AddMethods(typeof(MathF), fields);
+            if (bFloat)
+            {
+                var mf = typeof(MathF);
+                AddMethods(mf, fields);
+                AddConsts(mf, fields);
+            }
 #endif
+
             var mathType = typeof(Math);
             AddMethods(mathType, fields);
+            AddConsts(mathType, fields);
+
             AddMethods(NumType, fields);
+            AddConsts(NumType, fields);
+
             AddMethods(typeof(MyHelper), fields);
             AddConverts(typeof(Convert), fields);
-
-            AddConsts(NumType, fields);
-            AddConsts(mathType, fields);
             if (NumType == MyType.Boolean)
             {
                 Math<bool>.MaxValue = Math<bool>.One = true;
@@ -152,11 +162,17 @@ namespace Shone
                     MinusOne = FromInt32(-1);
                 }
             }
-
-            if (!MyType.FloatingSet.Contains(NumType))
+            if (NumType != MyType.Double)
             {
                 NegativeInfinity = MinValue;
                 PositiveInfinity = MaxValue;
+#if Net5
+                if (NumType != MyType.Single)
+#endif
+                {
+                    PI = FromDouble(Math.PI);
+                    E = FromDouble(Math.E);
+                }
             }
         }
 

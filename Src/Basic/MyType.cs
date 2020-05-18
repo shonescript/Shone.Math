@@ -24,6 +24,5 @@ namespace Shone
         public static HashSet<Type> NumberSet = new HashSet<Type> { Boolean, Char, SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal };
         public static HashSet<Type> UnsignedSet = new HashSet<Type> { Char, Byte, UInt16, UInt32, UInt64 };
         public static HashSet<Type> SignedSet = new HashSet<Type> { SByte, Int16, Int32, Int64, Single, Double };
-        public static HashSet<Type> FloatingSet = new HashSet<Type> { Single, Double };
     }
 }
