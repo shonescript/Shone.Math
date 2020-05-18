@@ -1,31 +1,33 @@
 # Shone.Math
-# A generic-types math library for .NET Framework 4.0 and .NET Core 3.1/5.0
+## A generic-types math library for .NET Framework 4.0 and .NET Core 3.1/5.0
 
 Create a dotnet generic math type is never easy. 
 This libray wrappers all math methods from Math,MathF,Convert and number classes into one generic Math\<T\> class.
 With the Math\<T\> class from Shone.Math, you can write .NET generic math codes EASILY and HAPPILY!
 
-# 0. Support all system number types in generic:
-
+### 0. Support all system number types in generic:
+``` csharp
     bool, sbyte, byte, short, ushort, char, int, uint, long, ulong, float, double, decimal
+```
 
-# 1. Very easy to use:
-
+### 1. Very easy to use:
+``` csharp
     using Shone;                       // import Shone namespace
 
     var d = Math\<double\>.Pow(5,3);     // use just like Math.Pow, but it is generic now!
+```
 
-
-# 2. Support all the system methods by delegates:
-
+### 2. Support all the system methods by delegates:
+``` csharp
     var func = Math\<double\>.Pow;    // it is a Func<double,double,double>
+```
 
-
-# 3. Support dot method extension:
-
+### 3. Support dot method extension:
+``` csharp
     var d = 5d.Pow(3);     // write in dot style
+```
 
-
-# 4. Include generic array extension:
-
+### 4. Include generic array extension:
+``` csharp
     var ds = new double[]{5d, 6d, 7d}.Pow(3);      // calculate array easily
+```
