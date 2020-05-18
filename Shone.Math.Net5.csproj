@@ -10,10 +10,16 @@
 
   <ItemGroup>
     <Compile Remove="Properties\**" />
+    <Compile Remove="Src\bin\**" />
+    <Compile Remove="Src\obj\**" />
     <Compile Remove="Src\Properties\**" />
     <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="Src\bin\**" />
+    <EmbeddedResource Remove="Src\obj\**" />
     <EmbeddedResource Remove="Src\Properties\**" />
     <None Remove="Properties\**" />
+    <None Remove="Src\bin\**" />
+    <None Remove="Src\obj\**" />
     <None Remove="Src\Properties\**" />
   </ItemGroup>
 
