@@ -5,12 +5,12 @@ A generic-types math library for .NET Standard 2.0
 
 using Shone;                       // import Shone namespace
 
-var d = Math<double>.Pow(5,3);     // use just like Math.Pow, but it is generic now!
+var d = Math\<double\>.Pow(5,3);     // use just like Math.Pow, but it is generic now!
 
 
 2. Support all the system methods by delegates:
 
-var func = Math<double>.Pow;    // it is a Func<double,double,double>
+var func = Math\<double\>.Pow;    // it is a Func<double,double,double>
 
 
 3. Support dot method extension:
