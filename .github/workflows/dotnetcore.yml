@@ -21,4 +21,4 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build ~/Shone.Math.Net5.csproj --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
