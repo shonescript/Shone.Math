@@ -20,6 +20,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore Shone.Math.Net5.csproj
+      run: dotnet build Shone.Math.Net5.csproj --configuration Release --no-restore 
     - name: Test
       run: dotnet test --no-restore --verbosity normal
