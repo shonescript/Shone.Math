@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,10 +44,25 @@
     <Compile Include="Basic\MyConvert.cs" />
     <Compile Include="Basic\MyHelper.cs" />
     <Compile Include="Basic\MyReflection.cs" />
+    <Compile Include="Basic\MyDouble.cs" />
+    <Compile Include="Basic\MyString.cs" />
     <Compile Include="Basic\MyType.cs" />
     <Compile Include="Extension\MyArray.cs" />
     <Compile Include="Extension\MyNum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Real\Irration\IrratE.cs" />
+    <Compile Include="Real\Irration\IrratExp.cs" />
+    <Compile Include="Real\Irration\Irration.cs" />
+    <Compile Include="Real\Irration\IrratLg.cs" />
+    <Compile Include="Real\Irration\IrratLn.cs" />
+    <Compile Include="Real\Irration\IrratLog.cs" />
+    <Compile Include="Real\Irration\IrratPi.cs" />
+    <Compile Include="Real\Irration\IrratPow.cs" />
+    <Compile Include="Real\Irration\IrratSqd.cs" />
+    <Compile Include="Real\Irration\IrratSqt.cs" />
+    <Compile Include="Real\Irration\IrratXp.cs" />
+    <Compile Include="Real\Ration.cs" />
+    <Compile Include="Real\Real.cs" />
     <Compile Include="Shone.Math.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

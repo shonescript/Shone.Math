@@ -37,6 +37,7 @@ namespace Shone
             }
             return result;
         }
+
         public static Boolean[] IsNormal<T>(this T[] a1) => Map(a1, Math<T>.IsNormal);
         public static Boolean[] IsSubnormal<T>(this T[] a1) => Map(a1, Math<T>.IsSubnormal);
         public static Boolean[] IsFinite<T>(this T[] a1) => Map(a1, Math<T>.IsFinite);

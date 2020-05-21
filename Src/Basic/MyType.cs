@@ -19,10 +19,11 @@ namespace Shone
         public static Type Single = typeof(float);
         public static Type Double = typeof(double);
         public static Type Decimal = typeof(decimal);
+        public static Type Real = typeof(Real);
         public static Type String = typeof(string);
 
-        public static HashSet<Type> NumberSet = new HashSet<Type> { Boolean, Char, SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal };
+        public static HashSet<Type> NumberSet = new HashSet<Type> { Boolean, Char, SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal, Real };
         public static HashSet<Type> UnsignedSet = new HashSet<Type> { Byte, Char, UInt16, UInt32, UInt64 };
-        public static HashSet<Type> SignedSet = new HashSet<Type> { SByte, Int16, Int32, Int64, Single, Double };
+        public static HashSet<Type> SignedSet = new HashSet<Type> { SByte, Int16, Int32, Int64, Single, Double, Decimal, Real };
     }
 }
