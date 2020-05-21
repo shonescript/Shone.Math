@@ -9,7 +9,10 @@ namespace Shone
         public static BindingFlags PublicStatic = BindingFlags.Public | BindingFlags.Static;
 
         public static Dictionary<string, string> MethodNameMaps = new Dictionary<string, string>{
-        { "op_UnaryNegation", "Negate" },
+        { "ASin", "Asin" },
+        { "ACos", "Acos" },
+        { "ATan", "Atan" },
+        { "ATan2", "Atan2" },
         { "op_Increment", "Increase" },
         { "op_Decrement", "Decrease" },
         { "op_Complement", "Not" },

@@ -26,71 +26,73 @@ namespace Shone
         public static Func<T, bool> IsNormal = xTrue;
         public static Func<T, bool> IsSubnormal = xFalse;
         public static Func<T, bool> IsFinite = xTrue;
-        public static Func<T, bool> IsInfinity = xFalse;
         public static Func<T, bool> IsNaN = xFalse;
-        public static Func<T, bool> IsNegative = x => LessThan(x, Zero);
-        public static Func<T, bool> IsNegativeInfinity = xFalse;
+        public static Func<T, bool> IsInfinity = xFalse;
         public static Func<T, bool> IsPositiveInfinity = xFalse;
+        public static Func<T, bool> IsNegativeInfinity = xFalse;
+        public static Func<T, bool> IsNegative = x => LessThan(x, Zero);
 
         public static Func<T, T> Negate = x => FromDecimal(-ToDecimal(x));
         public static Func<T, T> Increase = x => FromDecimal(ToDecimal(x) + 1);
         public static Func<T, T> Decrease = x => FromDecimal(ToDecimal(x) - 1);
-        public static Func<T, T> Comp = x => FromInt64(~ToInt64(x));
-        public static Func<T, bool> Not = x => !ToBoolean(x);
+        public static Func<T, T> Comp = x => FromLong(~ToLong(x));
+        public static Func<T, bool> Not = x => !ToBool(x);
 
-        public static Func<T, T, T> Add = (x, y) => FromInt32(ToInt32(x) + ToInt32(y));
-        public static Func<T, T, T> Subtract = (x, y) => FromInt32(ToInt32(x) - ToInt32(y));
-        public static Func<T, T, T> Multiply = (x, y) => FromInt32(ToInt32(x) * ToInt32(y));
-        public static Func<T, T, T> Divide = (x, y) => FromInt32(ToInt32(x) / ToInt32(y));
-        public static Func<T, T, T> Modulus = (x, y) => FromInt32(ToInt32(x) % ToInt32(y));
+        public static Func<T, T, T> Add = (x, y) => FromInt(ToInt(x) + ToInt(y));
+        public static Func<T, T, T> Subtract = (x, y) => FromInt(ToInt(x) - ToInt(y));
+        public static Func<T, T, T> Multiply = (x, y) => FromInt(ToInt(x) * ToInt(y));
+        public static Func<T, T, T> Divide = (x, y) => FromInt(ToInt(x) / ToInt(y));
+        public static Func<T, T, T> Modulus = (x, y) => FromInt(ToInt(x) % ToInt(y));
 
-        public static Func<T, T, T> BitAnd = (x, y) => FromInt64(ToInt64(x) & ToInt64(y));
-        public static Func<T, T, T> BitOr = (x, y) => FromInt64(ToInt64(x) | ToInt64(y));
-        public static Func<T, T, T> BitXOr = (x, y) => FromInt64(ToInt64(x) ^ ToInt64(y));
-        public static Func<T, T, T> LeftShift = (x, y) => FromInt64(ToInt64(x) << ToInt32(y));
-        public static Func<T, T, T> RightShif = (x, y) => FromInt64(ToInt64(x) >> ToInt32(y));
+        public static Func<T, T, T> BitAnd = (x, y) => FromLong(ToLong(x) & ToLong(y));
+        public static Func<T, T, T> BitOr = (x, y) => FromLong(ToLong(x) | ToLong(y));
+        public static Func<T, T, T> BitXOr = (x, y) => FromLong(ToLong(x) ^ ToLong(y));
+        public static Func<T, T, T> LeftShift = (x, y) => FromLong(ToLong(x) << ToInt(y));
+        public static Func<T, T, T> RightShif = (x, y) => FromLong(ToLong(x) >> ToInt(y));
 
-        public static Func<T, T, bool> And = (x, y) => ToBoolean(x) && ToBoolean(x);
-        public static Func<T, T, bool> Or = (x, y) => ToBoolean(x) || ToBoolean(x);
-        public static Func<T, T, bool> LessThan = (x, y) => ToInt32(x) < ToInt32(y);
-        public static Func<T, T, bool> GreatThan = (x, y) => ToInt32(x) > ToInt32(y);
-        public static Func<T, T, bool> LessEqual = (x, y) => ToInt32(x) <= ToInt32(y);
-        public static Func<T, T, bool> GreatEqual = (x, y) => ToInt32(x) >= ToInt32(y);
+        public static Func<T, T, bool> And = (x, y) => ToBool(x) && ToBool(x);
+        public static Func<T, T, bool> Or = (x, y) => ToBool(x) || ToBool(x);
+        public static Func<T, T, bool> LessThan = (x, y) => ToInt(x) < ToInt(y);
+        public static Func<T, T, bool> GreatThan = (x, y) => ToInt(x) > ToInt(y);
+        public static Func<T, T, bool> LessEqual = (x, y) => ToInt(x) <= ToInt(y);
+        public static Func<T, T, bool> GreatEqual = (x, y) => ToInt(x) >= ToInt(y);
         public static Func<T, T, bool> Equal;
         public static Func<T, T, bool> NotEqual;
 
-        public static Func<bool, T> FromBoolean;
+        public static Func<bool, T> FromBool;
         public static Func<char, T> FromChar;
         public static Func<sbyte, T> FromSByte;
         public static Func<byte, T> FromByte;
-        public static Func<short, T> FromInt16;
-        public static Func<ushort, T> FromUInt16;
-        public static Func<int, T> FromInt32;
-        public static Func<uint, T> FromUInt32;
-        public static Func<long, T> FromInt64;
-        public static Func<ulong, T> FromUInt64;
-        public static Func<float, T> FromSingle;
+        public static Func<short, T> FromShort;
+        public static Func<ushort, T> FromUShort;
+        public static Func<int, T> FromInt;
+        public static Func<uint, T> FromUInt;
+        public static Func<long, T> FromLong;
+        public static Func<ulong, T> FromULong;
+        public static Func<float, T> FromFloat;
         public static Func<double, T> FromDouble;
         public static Func<decimal, T> FromDecimal;
+        public static Func<Real, T> FromReal;
 
-        public static Func<T, bool> ToBoolean;
+        public static Func<T, bool> ToBool;
         public static Func<T, char> ToChar;
         public static Func<T, sbyte> ToSByte;
         public static Func<T, byte> ToByte;
-        public static Func<T, short> ToInt16;
-        public static Func<T, ushort> ToUInt16;
-        public static Func<T, int> ToInt32;
-        public static Func<T, uint> ToUInt32;
-        public static Func<T, long> ToInt64;
-        public static Func<T, ulong> ToUInt64;
-        public static Func<T, float> ToSingle;
+        public static Func<T, short> ToShort;
+        public static Func<T, ushort> ToUShort;
+        public static Func<T, int> ToInt;
+        public static Func<T, uint> ToUInt;
+        public static Func<T, long> ToLong;
+        public static Func<T, ulong> ToULong;
+        public static Func<T, float> ToFloat;
         public static Func<T, double> ToDouble;
         public static Func<T, decimal> ToDecimal;
+        public static Func<T, Real> ToReal;
 
         public static Func<string, T> Parse;
 
-        public static Func<T, int> Sign = x => Math.Sign(ToInt32(x));
-        public static Func<T, T> Abs => x => FromInt32(Math.Abs(ToInt32(x)));
+        public static Func<T, int> Sign = x => Math.Sign(ToInt(x));
+        public static Func<T, T> Abs => x => FromInt(Math.Abs(ToInt(x)));
         public static Func<T, T> Sqrt = x => FromDouble(Math.Sqrt(ToDouble(x)));
         public static Func<T, T> Cbrt = x => FromDouble(Math.Pow(ToDouble(x), 1d / 3d));
         public static Func<T, T> Exp = x => FromDouble(Math.Exp(ToDouble(x)));
@@ -99,7 +101,7 @@ namespace Shone
 #if Net5
         public static Func<T, T> Log2 = x => FromDouble(Math.Log2(ToDouble(x)));
 #else
-        public static Func<T, T> Log2 = x => Logx(x, FromInt32(2));
+        public static Func<T, T> Log2 = x => Logx(x, FromInt(2));
 #endif
         public static Func<T, T> Log10 = x => FromDouble(Math.Log10(ToDouble(x)));
         public static Func<T, T, T> Logx = (x, y) => FromDouble(Math.Log(ToDouble(x), ToDouble(y)));
@@ -131,7 +133,7 @@ namespace Shone
         static Math()
         {
             var fields = TheType.GetFields(MyReflection.PublicStatic);
-            var bFloat = NumType == MyType.Single;
+            var bFloat = NumType == MyType.Float;
 #if Net5
             if (bFloat)
             {
@@ -145,21 +147,30 @@ namespace Shone
             AddMethods(mathType, fields);
             AddConsts(mathType, fields);
 
+            var bReal = NumType == MyType.Real;
+            if (bReal)
+            {
+                AddMethods(typeof(MyReal), fields);
+            }
+            else if (NumType == MyType.Decimal)
+            {
+                AddMethods(typeof(DecimalMath.DecimalEx), fields);
+            }
             AddMethods(NumType, fields);
             AddConsts(NumType, fields);
 
             AddMethods(typeof(MyHelper), fields);
             AddConverts(typeof(MyConvert), fields);
-            if (NumType == MyType.Boolean)
+            if (NumType == MyType.Bool)
             {
                 Math<bool>.MaxValue = Math<bool>.One = true;
             }
             else if (NumType != MyType.Decimal)
             {
-                One = FromInt32(1);
+                One = FromInt(1);
                 if (MyType.SignedSet.Contains(NumType))
                 {
-                    MinusOne = FromInt32(-1);
+                    MinusOne = FromInt(-1);
                 }
             }
             if (NumType != MyType.Double)
@@ -167,8 +178,9 @@ namespace Shone
                 NegativeInfinity = MinValue;
                 PositiveInfinity = MaxValue;
 #if Net5
-                if (NumType != MyType.Single)
+                if (!bFloat)
 #endif
+                if (!bReal)
                 {
                     PI = FromDouble(Math.PI);
                     E = FromDouble(Math.E);
@@ -230,8 +242,8 @@ namespace Shone
                 var para = paras[0];
                 var rt = m.ReturnType;
                 var rNum = rt == NumType;
-                var rInt = rt == MyType.Int32;
-                var rBool = rt == MyType.Boolean;
+                var rInt = rt == MyType.Int;
+                var rBool = rt == MyType.Bool;
                 var bTwo = k == 2;
                 var bNums = para.ParameterType == NumType;
                 if (bTwo) bNums = bNums && paras[1].ParameterType == NumType;

@@ -58,8 +58,8 @@ namespace Shone
         public virtual Real Sqrt => irratSqrt.calcNew(Data);
         public virtual Real Xp => irratXp.calcNew(Data);
         public virtual Real Exp => irratExp.calcNew(Data);
-        public virtual Real Ln => irratLn.calcNew(Data);
-        public virtual Real Lg => irratLg.calcNew(Data);
+        public virtual Real Log => irratLn.calcNew(Data);
+        public virtual Real Log10 => irratLg.calcNew(Data);
 
         internal Real()
         {
@@ -80,34 +80,22 @@ namespace Shone
             if (double.IsNaN(d1) && double.IsNaN(d)) return true;
             return d1 == d;
         }
-        public bool Equal(Real d)
+        public bool Equals(Real r)
         {
-            return Equals(d.Data);
-        }
-        public bool NotEqual(Real d) => !Equals(d);
-        public bool Great(Real d) => Data > d.Data;
-        public bool Less(Real d) => Data < d.Data;
-        public bool GreatEqual(Real d) => Data >= d.Data;
-        public bool LessEqual(Real d) => Data <= d.Data;
-
-        public bool Equals(Real v)
-        {
-            if (v is Real r) return Equal(r.Data);
-            return ReferenceEquals(this, v);
+            return Equal(r.Data);
         }
         public override bool Equals(object obj)
         {
             if (obj is Real r) return Equal(r.Data);
             return ReferenceEquals(this, obj);
         }
-        public int CompareTo(Real v)
+        public int CompareTo(Real r)
         {
-            if (v is Real r) return Data.CompareTo(r.Data);
-            return -1;
+            return Data.CompareTo(r.Data);
         }
         public int CompareTo(object obj)
         {
-            if (obj is Real r) return CompareTo(r);
+            if (obj is Real r) return Data.CompareTo(r.Data);
             return -1;
         }
 
@@ -157,7 +145,6 @@ namespace Shone
             throw new NotImplementedException();
             //return Convert.DefaultToType(Data, type, provider);
         }
-
 
         protected virtual Real create(Real xr)
         {
@@ -326,7 +313,7 @@ namespace Shone
         {
             return Pow(x2.Invert);
         }
-        public Real Log(Real newBase)
+        public Real Logx(Real newBase)
         {
             var b = newBase.Data;
             if (b == E) return new IrratLn(Numer, Denom);
@@ -824,31 +811,6 @@ namespace Shone
         public static Real operator %(Real x1, Real x2)
         {
             return x1.Mode(x2);
-        }
-
-        public static Real operator ~(Real x)
-        {
-            return ~(long)x.Data;
-        }
-        public static Real operator &(Real x1, Real x2)
-        {
-            return ((long)x1.Data) & (long)x2.Data;
-        }
-        public static Real operator |(Real x1, Real x2)
-        {
-            return ((long)x1.Data) | (long)x2.Data;
-        }
-        public static Real operator ^(Real x1, Real x2)
-        {
-            return ((long)x1.Data) ^ (long)x2.Data;
-        }
-        public static Real operator <<(Real x1, int x2)
-        {
-            return ((long)x1.Data) << x2;
-        }
-        public static Real operator >>(Real x1, int x2)
-        {
-            return ((long)x1.Data) >> x2;
         }
 
         public static bool operator ==(double x1, Real x2) => (object)x2 != null && x2.Equal(x1);

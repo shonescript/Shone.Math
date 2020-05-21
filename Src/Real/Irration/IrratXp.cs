@@ -14,7 +14,7 @@ namespace Shone
 
         public override Real Sqrd => calcCreate(numer, 2 * Data);
         public override Real Sqrt => calcCreate(numer, Data / 2);
-        public override Real Lg => From(numer, denom, Data);
+        public override Real Log10 => From(numer, denom, Data);
 
         internal IrratXp(double n, double d) : base(n, d)
         {

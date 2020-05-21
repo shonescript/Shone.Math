@@ -15,8 +15,8 @@ namespace Shone
 
         public override Real Sqrd => calcCreate(numer, 2 * denom);
         public override Real Sqrt => calcCreate(numer, denom / 2);
-        public override Real Ln => numer == Math.E ? From(denom) : irratLn.calcNew(Data);
-        public override Real Lg => numer == 10 ? From(denom) : irratLg.calcNew(Data);
+        public override Real Log => numer == Math.E ? From(denom) : irratLn.calcNew(Data);
+        public override Real Log10 => numer == 10 ? From(denom) : irratLg.calcNew(Data);
 
         internal IrratPow(double x, double y) : base(x, y)
         {

@@ -46,6 +46,8 @@
     <Compile Include="Basic\MyReflection.cs" />
     <Compile Include="Basic\MyDouble.cs" />
     <Compile Include="Basic\MyString.cs" />
+    <Compile Include="Basic\MyReal.cs" />
+    <Compile Include="Basic\DecimalMath.cs" />
     <Compile Include="Basic\MyType.cs" />
     <Compile Include="Extension\MyArray.cs" />
     <Compile Include="Extension\MyNum.cs" />
