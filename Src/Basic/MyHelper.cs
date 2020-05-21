@@ -12,13 +12,6 @@ namespace Shone
         public static bool Equal(Boolean x, Boolean y) => x == y;
         public static bool NotEqual(Boolean x, Boolean y) => x != y;
 
-        public static bool Equal(Char x, Char y) => x == y;
-        public static bool NotEqual(Char x, Char y) => x != y;
-        public static bool LessThan(Char x, Char y) => x < y;
-        public static bool LessEqual(Char x, Char y) => x <= y;
-        public static bool GreatThan(Char x, Char y) => x > y;
-        public static bool GreatEqual(Char x, Char y) => x >= y;
-
         public static bool Equal(SByte x, SByte y) => x == y;
         public static bool NotEqual(SByte x, SByte y) => x != y;
         public static bool LessThan(SByte x, SByte y) => x < y;
@@ -33,6 +26,13 @@ namespace Shone
         public static bool GreatThan(Byte x, Byte y) => x > y;
         public static bool GreatEqual(Byte x, Byte y) => x >= y;
 
+        public static bool Equal(Char x, Char y) => x == y;
+        public static bool NotEqual(Char x, Char y) => x != y;
+        public static bool LessThan(Char x, Char y) => x < y;
+        public static bool LessEqual(Char x, Char y) => x <= y;
+        public static bool GreatThan(Char x, Char y) => x > y;
+        public static bool GreatEqual(Char x, Char y) => x >= y;
+
         public static bool Equal(Int16 x, Int16 y) => x == y;
         public static bool NotEqual(Int16 x, Int16 y) => x != y;
         public static bool LessThan(Int16 x, Int16 y) => x < y;
@@ -40,20 +40,12 @@ namespace Shone
         public static bool GreatThan(Int16 x, Int16 y) => x > y;
         public static bool GreatEqual(Int16 x, Int16 y) => x >= y;
 
-        public static UInt32 Add(UInt32 x, UInt32 y) => x + y;
-        public static UInt32 Subtract(UInt32 x, UInt32 y) => x - y;
-        public static UInt32 Multiply(UInt32 x, UInt32 y) => x * y;
-        public static UInt32 Divide(UInt32 x, UInt32 y) => x / y;
-        public static UInt32 Modulus(UInt32 x, UInt32 y) => x % y;
-        public static UInt32 BitAnd(UInt32 x, UInt32 y) => x & y;
-        public static UInt32 BitOr(UInt32 x, UInt32 y) => x | y;
-        public static UInt32 BitXOr(UInt32 x, UInt32 y) => x ^ y;
-        public static bool Equal(UInt32 x, UInt32 y) => x == y;
-        public static bool NotEqual(UInt32 x, UInt32 y) => x != y;
-        public static bool LessThan(UInt32 x, UInt32 y) => x < y;
-        public static bool LessEqual(UInt32 x, UInt32 y) => x <= y;
-        public static bool GreatThan(UInt32 x, UInt32 y) => x > y;
-        public static bool GreatEqual(UInt32 x, UInt32 y) => x >= y;
+        public static bool Equal(UInt16 x, UInt16 y) => x == y;
+        public static bool NotEqual(UInt16 x, UInt16 y) => x != y;
+        public static bool LessThan(UInt16 x, UInt16 y) => x < y;
+        public static bool LessEqual(UInt16 x, UInt16 y) => x <= y;
+        public static bool GreatThan(UInt16 x, UInt16 y) => x > y;
+        public static bool GreatEqual(UInt16 x, UInt16 y) => x >= y;
 
         public static Int32 Negate(Int32 x) => -x;
         public static Int32 Add(Int32 x, Int32 y) => x + y;
@@ -72,6 +64,21 @@ namespace Shone
         public static bool LessEqual(Int32 x, Int32 y) => x <= y;
         public static bool GreatThan(Int32 x, Int32 y) => x > y;
         public static bool GreatEqual(Int32 x, Int32 y) => x >= y;
+
+        public static UInt32 Add(UInt32 x, UInt32 y) => x + y;
+        public static UInt32 Subtract(UInt32 x, UInt32 y) => x - y;
+        public static UInt32 Multiply(UInt32 x, UInt32 y) => x * y;
+        public static UInt32 Divide(UInt32 x, UInt32 y) => x / y;
+        public static UInt32 Modulus(UInt32 x, UInt32 y) => x % y;
+        public static UInt32 BitAnd(UInt32 x, UInt32 y) => x & y;
+        public static UInt32 BitOr(UInt32 x, UInt32 y) => x | y;
+        public static UInt32 BitXOr(UInt32 x, UInt32 y) => x ^ y;
+        public static bool Equal(UInt32 x, UInt32 y) => x == y;
+        public static bool NotEqual(UInt32 x, UInt32 y) => x != y;
+        public static bool LessThan(UInt32 x, UInt32 y) => x < y;
+        public static bool LessEqual(UInt32 x, UInt32 y) => x <= y;
+        public static bool GreatThan(UInt32 x, UInt32 y) => x > y;
+        public static bool GreatEqual(UInt32 x, UInt32 y) => x >= y;
 
         public static Int64 Negate(Int64 x) => -x;
         public static Int64 Add(Int64 x, Int64 y) => x + y;

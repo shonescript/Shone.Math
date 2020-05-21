@@ -38,6 +38,7 @@ namespace Shone
         { "Increment", "++" },
         { "Decrement", "--" },
         { "OnesComplement", "~" }};
+
         public static Dictionary<string, string> Op1bNameMaps = new Dictionary<string, string>{
         { "Complement", "!" }};
 

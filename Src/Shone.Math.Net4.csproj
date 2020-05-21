@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic\MyConvert.cs" />
     <Compile Include="Basic\MyHelper.cs" />
     <Compile Include="Basic\MyReflection.cs" />
     <Compile Include="Basic\MyType.cs" />

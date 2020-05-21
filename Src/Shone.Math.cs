@@ -149,7 +149,7 @@ namespace Shone
             AddConsts(NumType, fields);
 
             AddMethods(typeof(MyHelper), fields);
-            AddConverts(typeof(Convert), fields);
+            AddConverts(typeof(MyConvert), fields);
             if (NumType == MyType.Boolean)
             {
                 Math<bool>.MaxValue = Math<bool>.One = true;
