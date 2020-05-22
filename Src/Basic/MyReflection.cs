@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Reflection;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Helper class for reflection usage
+    /// </summary>
     public static class MyReflection
     {
         public static BindingFlags PublicStatic = BindingFlags.Public | BindingFlags.Static;

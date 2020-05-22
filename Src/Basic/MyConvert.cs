@@ -1,7 +1,11 @@
 using System;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Helper class replacing the System.Convert implimentation 
+    /// </summary>
     public static class MyConvert
     {
         public static bool ToBool(bool d) => d;

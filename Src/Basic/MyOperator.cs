@@ -1,8 +1,12 @@
 using System;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
-    public static class MyHelper
+    /// <summary>
+    /// Helper class for basic operator methods that cannot get from system numeric type, such as long, int, byte, ...
+    /// </summary>
+    public static class MyOperator
     {
         public static Boolean BitAnd(Boolean x, Boolean y) => x & y;
         public static Boolean BitOr(Boolean x, Boolean y) => x | y;

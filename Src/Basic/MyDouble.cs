@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Helper class for Double number
+    /// </summary>
     public static class MyDouble
     {
-        /// <summary>
-        /// 计算两个整数的最小公倍数
-        /// </summary>
-        public static double Lcm(double a, double b)
+        public static double LCM(double a, double b)
         {
-            return a * b / Gcd(a, b);
+            return a * b / GCD(a, b);
         }
-        /// <summary>
-        /// 根据欧几里德算法，计算两个整数的最大公约数
-        /// </summary>
-        public static double Gcd(double a, double b)
+
+        public static double GCD(double a, double b)
         {
             if (a == 0) return b;
             if (b == 0) return a;
@@ -26,7 +25,7 @@ namespace Shone
             if (a == 1 || b == 1) return 1;
             return a < b ? gcd(b, a) : gcd(a, b);
         }
-        public static double gcd(this double n1, double n2)
+        internal static double gcd(double n1, double n2)
         {
             while (n2 != 0)
             {
@@ -41,10 +40,12 @@ namespace Shone
         {
             return *(byte*)&d != 0;
         }
+
         unsafe public static bool IsNotMisc(this double d)
         {
             return *(byte*)&d == 0;
         }
+
         public static bool TryRound_(this ref double d)
         {
             double n = Math.Round(d, MidpointRounding.AwayFromZero);

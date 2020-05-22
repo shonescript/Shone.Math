@@ -2,8 +2,12 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Class for irrational Pow() number
+    /// </summary>
     public class IrratPow : Irration
     {
         public override RealCode RealCode => RealCode.Pow;
@@ -30,8 +34,8 @@ namespace Shone
         {
             if (x == Math.E) return new IrratExp(y, 1);
             if (x == 10) return new IrratXp(y, 1);
-            if (y == 2) return new IrratSqd(x, 1);
-            if (y == 0.5) return new IrratSqt(x, 1);
+            if (y == 2) return new IrratSqrd(x, 1);
+            if (y == 0.5) return new IrratSqrt(x, 1);
             return new IrratPow(x, y);
         }
 

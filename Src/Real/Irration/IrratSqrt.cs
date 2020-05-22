@@ -2,9 +2,13 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
-    public class IrratSqt : Irration
+    /// <summary>
+    /// Class for irrational sqrt() number
+    /// </summary>
+    public class IrratSqrt : Irration
     {
         public override RealCode RealCode => RealCode.Sqrt;
 
@@ -14,7 +18,7 @@ namespace Shone
 
         public override Real Sqrd => From(numer, denom, Data);
 
-        internal IrratSqt(double n, double d) : base(n, d)
+        internal IrratSqrt(double n, double d) : base(n, d)
         {
         }
 
@@ -24,7 +28,7 @@ namespace Shone
         }
         protected override Real create(double n, double d)
         {
-            return new IrratSqt(n, d);
+            return new IrratSqrt(n, d);
         }
 
         public override string ToString(bool bSource)

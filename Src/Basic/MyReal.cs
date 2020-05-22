@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
     /// <summary>
-    /// 实数值包装
+    /// Helper class for Real number
     /// </summary>
     public static class MyReal
     {

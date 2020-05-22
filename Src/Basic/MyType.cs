@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Helper class for Type usage
+    /// </summary>
     public static class MyType
     {
         public static Type Bool = typeof(bool);

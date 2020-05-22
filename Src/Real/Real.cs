@@ -3,8 +3,12 @@ using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Real number type code
+    /// </summary>
     public enum RealCode
     {
         Real = 1,
@@ -13,34 +17,25 @@ namespace Shone
         E = 8,
         Sqrt = 16,
         Sqrd = 32,
-        Lg = 64,
-        Ln = 128,
-        Log = 256,
+        Log10 = 64,
+        Log = 128,
+        Logx = 256,
         Xp = 512,
         Exp = 1024,
         Pow = 2048
     }
 
     /// <summary>
-    /// 实数基类，可表示浮点数（分母为1）、有理数（分母不为1）和无理数
+    /// Base class for real number, including floating, rational, irrational
     /// </summary>
     public class Real : IComparable, IFormattable, IConvertible, IComparable<Real>, IEquatable<Real>
     {
         public double Data;
 
-        /// <summary>
-        /// 实数代码
-        /// </summary>
         public virtual RealCode RealCode => RealCode.Real;
 
-        /// <summary>
-        /// 分子
-        /// </summary>
         public virtual double Numer => Data;
 
-        /// <summary>
-        /// 分母，注意必须是正数
-        /// </summary>
         public virtual double Denom => 1;
 
         public virtual bool IsNumer => true;
@@ -174,11 +169,11 @@ namespace Shone
                    calcCreate(n1 + n2, d1) :
                    calcCreate(n1 * d2 + d1 * n2, d1 * d2);
             }
-            if (code == RealCode.Lg || code == RealCode.Ln)
+            if (code == RealCode.Log10 || code == RealCode.Log)
             {
                 return calcCreate(n1 * n2, d1 * d2);
             }
-            if (code == RealCode.Log && n1 == n2) return calcCreate(n1, d1 * d2);
+            if (code == RealCode.Logx && n1 == n2) return calcCreate(n1, d1 * d2);
             return Data + x2.Data;
         }
 
@@ -201,7 +196,7 @@ namespace Shone
                    calcCreate(n1 - n2, d1) :
                    calcCreate(n1 * d2 - d1 * n2, d1 * d2);
             }
-            if (code == RealCode.Lg || code == RealCode.Ln)
+            if (code == RealCode.Log10 || code == RealCode.Log)
             {
                 return calcCreate(n1 * d2, d1 * n2);
             }
@@ -316,27 +311,27 @@ namespace Shone
         public Real Logx(Real newBase)
         {
             var b = newBase.Data;
-            if (b == E) return new IrratLn(Numer, Denom);
-            if (b == 10) return new IrratLg(Numer, Denom);
-            return new IrratLog(b, Data);
+            if (b == E) return new IrratLog(Numer, Denom);
+            if (b == 10) return new IrratLog10(Numer, Denom);
+            return new IrratLogx(b, Data);
         }
 
         public static readonly Real MaxValue = new Real(double.MaxValue);
         public static readonly Real One = new Real(1);
         public static readonly Real Zero = new Real(0);
-        public static readonly Real NOne = new Real(-1);
+        public static readonly Real MinusOne = new Real(-1);
         public static readonly Real MinValue = new Real(double.MinValue);
         public static readonly Real NaN = new Real(double.NaN);
-        public static readonly Real PInfinity = new Real(double.PositiveInfinity);
-        public static readonly Real NInfinity = new Real(double.NegativeInfinity);
+        public static readonly Real PositiveInfinity = new Real(double.PositiveInfinity);
+        public static readonly Real NegativeInfinity = new Real(double.NegativeInfinity);
         public static readonly Real EpsDigit = new Real(6);
         public static readonly Real Epsilon = new Ration(1, 1e6);
         public static readonly Real SqrdEpsilon = new Ration(1, 1e12);
         public static readonly Real SqrtEpsilon = new Ration(1, 1e3);
         public static readonly Real E = new IrratE(1, 1);
-        public static readonly Real PI = new IrratPi(1, 1);
-        public static readonly Real TwoPI = new IrratPi(2, 1);
-        public static readonly Real RadFactor = new IrratPi(1, 180);
+        public static readonly Real PI = new IrratPI(1, 1);
+        public static readonly Real TwoPI = new IrratPI(2, 1);
+        public static readonly Real RadFactor = new IrratPI(1, 180);
         public static readonly Real DegFactor = new Real(180 / Math.PI);
 
         public static readonly Real Two = new Real(2);
@@ -388,11 +383,11 @@ namespace Shone
         public static readonly Real NOneOfNine = new Ration(-1, 9);
         public static readonly Real NOneOfTen = new Ration(-1, 10);
 
-        internal static readonly IrratSqt irratSqrt = new IrratSqt(1, 1);
-        internal static readonly IrratSqd irratSqrd = new IrratSqd(1, 1);
-        internal static readonly IrratLg irratLg = new IrratLg(1, 1);
-        internal static readonly IrratLn irratLn = new IrratLn(1, 1);
-        internal static readonly IrratLog irratLog = new IrratLog(1, 1);
+        internal static readonly IrratSqrt irratSqrt = new IrratSqrt(1, 1);
+        internal static readonly IrratSqrd irratSqrd = new IrratSqrd(1, 1);
+        internal static readonly IrratLog10 irratLg = new IrratLog10(1, 1);
+        internal static readonly IrratLog irratLn = new IrratLog(1, 1);
+        internal static readonly IrratLogx irratLog = new IrratLogx(1, 1);
         internal static readonly IrratXp irratXp = new IrratXp(1, 1);
         internal static readonly IrratExp irratExp = new IrratExp(1, 1);
         internal static readonly IrratPow irratPow = new IrratPow(1, 1);
@@ -442,10 +437,10 @@ namespace Shone
             }
             for (int i = 10001; i <= 1000000000; i *= 10) addRation(1, i);
 
-            addReals(72, 36, (n, d) => new IrratPi(n, d));
+            addReals(72, 36, (n, d) => new IrratPI(n, d));
             addReals(20, 10, (n, d) => new IrratE(n, d));
-            addReals(100, 100, (n, d) => new IrratSqt(n, d), false);
-            addReals(100, 1, (n, d) => new IrratLg(n, d), false);
+            addReals(100, 100, (n, d) => new IrratSqrt(n, d), false);
+            addReals(100, 1, (n, d) => new IrratLog10(n, d), false);
         }
         static void addReal(Real real)
         {
@@ -481,9 +476,6 @@ namespace Shone
             }
         }
 
-        /// <summary>
-        /// 格式化整数
-        /// </summary>
         public static Real From(int num)
         {
             double value = num;
@@ -491,25 +483,18 @@ namespace Shone
             return new Real(value);
         }
 
-        /// <summary>
-        /// 格式化浮点数
-        /// </summary>
         public static Real From(double value, bool bTest = false)
         {
             if (dataMaps.ContainsKey(value)) return dataMaps[value];
             if (value.IsNotMisc()) return new Real(value);
             if (value.TryRound_())
             {
-                //判断是否可以格式化取整
                 if (dataMaps.ContainsKey(value)) return dataMaps[value];
                 return new Real(value);
             }
-            //判断是否可以独立精确表达
             return bTest ? null : new Real(value);
         }
-        /// <summary>
-        /// 格式化分数
-        /// </summary>
+
         public static Real From(double numer, double denom)
         {
             if (denom == 1) return numer;
@@ -520,7 +505,7 @@ namespace Shone
         {
             var real = From(value, true);
             if (real != null) return real;
-            //判断是否无法独立精确表达
+
             if (numer.IsMisc() || denom.IsMisc()) return new Real(value);
 
             if (denom < 0)
@@ -530,7 +515,6 @@ namespace Shone
             }
             if (denom == 1) return new Real(numer);
 
-            //判断为<1的小数情况
             if (value > -1 && value < 1)
             {
                 double d = denom / numer;
@@ -543,15 +527,14 @@ namespace Shone
                 {
                     if (d > 0) return new Ration(1, d, value);
                     else if (d < 0) return new Ration(-1, -d, value);
-                    else if (d == 0) return PInfinity;
+                    else if (d == 0) return PositiveInfinity;
                     else return NaN;
                 }
             }
 
-            //判断分子分母取整情况
             if (denom.TryRound_())
             {
-                if (denom == 0) return numer < 0 ? PInfinity : NInfinity;
+                if (denom == 0) return numer < 0 ? PositiveInfinity : NegativeInfinity;
                 if (numer.TryRound_())
                 {
                     var n = numer < 0 ? -numer : numer;
@@ -573,19 +556,19 @@ namespace Shone
             switch (suffix)
             {
                 case "pi":
-                    return new IrratPi(numer, denom);
+                    return new IrratPI(numer, denom);
                 case "e":
                     return new IrratE(numer, denom);
                 case "sqt":
-                    return new IrratSqt(numer, denom);
+                    return new IrratSqrt(numer, denom);
                 case "sqd":
-                    return new IrratSqd(numer, denom);
+                    return new IrratSqrd(numer, denom);
                 case "lg":
-                    return new IrratLg(numer, denom);
+                    return new IrratLog10(numer, denom);
                 case "ln":
-                    return new IrratLn(numer, denom);
-                case "log":
                     return new IrratLog(numer, denom);
+                case "log":
+                    return new IrratLogx(numer, denom);
                 case "xp":
                     return new IrratXp(numer, denom);
                 case "exp":

@@ -2,10 +2,11 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
     /// <summary>
-    /// ÎÞÀíÊý
+    /// Base class for irrational number
     /// </summary>
     public class Irration : Real
     {

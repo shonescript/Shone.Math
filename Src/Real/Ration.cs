@@ -2,10 +2,11 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
     /// <summary>
-    /// ÓÐÀíÊý
+    /// Class for rational number, which is in fractional form like 2/3
     /// </summary>
     public class Ration : Real
     {

@@ -2,38 +2,38 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Class for irrational Log() number
+    /// </summary>
     public class IrratLog : Irration
     {
         public override RealCode RealCode => RealCode.Log;
 
-        public override Real Negate => -Data;
-        public override Real Abs => Data < 0 ? From(-Data) : this;
-        public override Real Invert => calcCreate(denom, numer);
+        public override Real Negate => calcCreate(denom, numer);
+        public override Real Abs => Data < 0 ? calcCreate(denom, numer) : this;
+        public override Real Invert => 1 / Data;
         public override Real Percent => Data / 100;
+        public override Real Exp => From(numer, denom, Data);
 
-        public override Real Xp => numer == 10 ? From(denom) : irratXp.calcNew(Data);
-        public override Real Exp => numer == Math.E ? From(denom) : irratExp.calcNew(Data);
-
-        internal IrratLog(double x, double y) : base(x, y)
+        internal IrratLog(double n, double d) : base(n, d)
         {
         }
 
-        protected override double calc(double x, double y)
+        protected override double calc(double n, double d)
         {
-            return Math.Log(y, x);
+            return Math.Log(n / d);
         }
-        protected override Real create(double x, double y)
+        protected override Real create(double n, double d)
         {
-            if (x == Math.E) return new IrratLn(y, 1);
-            if (x == 10) return new IrratLg(y, 1);
-            return new IrratLog(x, y);
+            return new IrratLog(n, d);
         }
 
         public override string ToString(bool bSource)
         {
-            return toString(bSource ? "log" : null);
+            return toString(bSource ? "ln" : null);
         }
     }
 }

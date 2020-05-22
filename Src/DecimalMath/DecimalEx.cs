@@ -1,23 +1,14 @@
-﻿//All rights reserved to nathanpjones, author of DecimalMath (https://github.com/nathanpjones/DecimalMath).
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace DecimalMath
 {
     /// <summary>
-    ///     Contains mathematical operations performed in Decimal precision.
+    /// Contains mathematical operations performed in Decimal precision.
     /// </summary>
     public static partial class DecimalEx
     {
-        public static decimal Abs(decimal a)
-        {
-            if (a >= 0)
-                return a;
-            return -a;
-        }
-
         /// <summary>
         /// Returns the square root of a given number. 
         /// </summary>
@@ -30,7 +21,7 @@ namespace DecimalMath
         {
             if (s < 0)
                 throw new ArgumentException("Square root not defined for Decimal data type when less than zero!", "s");
-
+            
             // Prevent divide-by-zero errors below. Dividing either
             // of the numbers below will yield a recurring 0 value
             // for halfS eventually converging on zero.
@@ -69,7 +60,7 @@ namespace DecimalMath
         {
             decimal result;
             var isNegativeExponent = false;
-
+            
             // Handle negative exponents
             if (y < 0)
             {
@@ -173,11 +164,11 @@ namespace DecimalMath
                 // Split up into integer and fractional
                 result = Exp(t) * Exp(d - t);
             }
-            else if (d == t) // Integer power
+            else if (d == t)   // Integer power
             {
                 result = ExpBySquaring(E, d);
             }
-            else // Fractional power < 1
+            else                // Fractional power < 1
             {
                 // See http://mathworld.wolfram.com/ExponentialFunction.html
                 iteration = 0;
@@ -188,11 +179,11 @@ namespace DecimalMath
                 {
                     if (iteration == 0)
                     {
-                        nextAdd = 1; // == Pow(d, 0) / Factorial(0) == 1 / 1 == 1
+                        nextAdd = 1;               // == Pow(d, 0) / Factorial(0) == 1 / 1 == 1
                     }
                     else
                     {
-                        nextAdd *= d / iteration; // == Pow(d, iteration) / Factorial(iteration)
+                        nextAdd *= d / iteration;  // == Pow(d, iteration) / Factorial(iteration)
                     }
 
                     if (nextAdd == 0) break;
@@ -219,12 +210,11 @@ namespace DecimalMath
         /// algorithms that you can find in a historical version of this 
         /// source file. The one I settled on was the best of mediocrity.
         /// </remarks>
-
         public static decimal Log(decimal d)
         {
             if (d < 0) throw new ArgumentException("Natural logarithm is a complex number for values less than zero!", "d");
             if (d == 0) throw new OverflowException("Natural logarithm is defined as negative infinity at zero which the Decimal data type can't represent!");
-
+            
             if (d == 1) return 0;
 
             if (d >= 1)
@@ -240,7 +230,7 @@ namespace DecimalMath
 
                 return Log(x) + power * Ln10;
             }
-
+            
             // See http://en.wikipedia.org/wiki/Natural_logarithm#Numerical_value
             // for more information on this faster-converging series.
 
@@ -265,7 +255,7 @@ namespace DecimalMath
                 {
                     exponent = exponent * ySquared;
                 }
-
+                
                 nextAdd = exponent / (2 * iteration + 1);
 
                 if (nextAdd == 0) break;
@@ -276,6 +266,7 @@ namespace DecimalMath
             }
 
             return result;
+
         }
 
         /// <summary>
@@ -287,7 +278,6 @@ namespace DecimalMath
         /// This is a relatively naive implementation that simply divides the
         /// natural log of <paramref name="d"/> by the natural log of the base.
         /// </remarks>
-
         public static decimal Log(decimal d, decimal newBase)
         {
             // Short circuit the checks below if d is 1 because
@@ -308,11 +298,32 @@ namespace DecimalMath
         /// Returns the base 10 logarithm of a specified number.
         /// </summary>
         /// <param name="d">A number whose logarithm is to be found.</param>
-
         public static decimal Log10(decimal d)
         {
             if (d < 0) throw new ArgumentException("Logarithm is a complex number for values less than zero!", nameof(d));
             if (d == 0) throw new OverflowException("Logarithm is defined as negative infinity at zero which the Decimal data type can't represent!");
+
+            // Shrink precision from the input value and get bits for analysis
+            var parts = decimal.GetBits(d / 1.000000000000000000000000000000000m);
+            var scale = (parts[3] >> 16) & 0x7F;
+
+            // Handle special cases of .1, .01, .001, etc.
+            if (parts[0] == 1 && parts[1] == 0 && parts[2] == 0)
+            {
+                return -1 * scale;
+            }
+
+            // Handle special cases of powers of 10
+            // Note: A binary search was actually found to be faster on average probably because it takes fewer iterations to find no match.
+            //       It's even faster than doing a modulus 10 check first.
+            if (scale == 0)
+            {
+                var powerOf10 = Array.BinarySearch(PowersOf10, d);
+                if (powerOf10 >= 0)
+                {
+                    return powerOf10;
+                }
+            }
 
             return Log(d) / Ln10;
         }
@@ -321,7 +332,6 @@ namespace DecimalMath
         /// Returns the base 2 logarithm of a specified number.
         /// </summary>
         /// <param name="d">A number whose logarithm is to be found.</param>
-
         public static decimal Log2(decimal d)
         {
             if (d < 0) throw new ArgumentException("Logarithm is a complex number for values less than zero!", nameof(d));
@@ -338,7 +348,6 @@ namespace DecimalMath
         /// <remarks>
         /// Only supports non-negative integers.
         /// </remarks>
-
         public static decimal Factorial(decimal n)
         {
             if (n < 0) throw new ArgumentException("Values less than zero are not supoprted!", "n");
@@ -364,7 +373,6 @@ namespace DecimalMath
         /// Will return empty results where there is no solution and for complex solutions.
         /// See http://www.wikihow.com/Factor-Second-Degree-Polynomials-%28Quadratic-Equations%29
         /// </remarks>
-
         public static decimal[] SolveQuadratic(decimal a, decimal b, decimal c)
         {
             // Horizontal line is either 0 nowhere or everywhere so no solution.
@@ -386,7 +394,7 @@ namespace DecimalMath
             // multiply the coefficients by whatever we want until they are 
             // in a more favorable range. In this case, we'll make sure here 
             // that at least one number is greater than 1 or less than -1.
-            while ((-1 < a && a < 1) && (-1 < b && b < 1) && (-1 < c && c < 1))
+            while ((-1 < a && a < 1) && (-1 < b && b < 1) && (-1 < c && c < 1)) 
             {
                 a *= 10;
                 b *= 10;
@@ -413,8 +421,8 @@ namespace DecimalMath
             // (x - h)(x - k) = 0 means h and k are the values for x 
             //   that will make the equation = 0
             return h == k
-                ? new[] { h }
-                : new[] { h, k };
+                       ? new[] { h }
+                       : new[] { h, k };
         }
 
         /// <summary>
@@ -423,7 +431,6 @@ namespace DecimalMath
         /// <param name="value">A decimal value.</param>
         /// <param name="places">An integer representing the maximum number of digits 
         /// after the decimal point to end up with.</param>
-
         public static decimal Floor(decimal value, int places = 0)
         {
             if (places < 0) throw new ArgumentOutOfRangeException("places", "Places must be greater than or equal to 0.");
@@ -435,14 +442,12 @@ namespace DecimalMath
 
             return decimal.Floor(value * PowersOf10[places]) / PowersOf10[places];
         }
-
         /// <summary>
         /// Returns the ceiling of a Decimal value at the given number of digits.
         /// </summary>
         /// <param name="value">A decimal value.</param>
         /// <param name="places">An integer representing the maximum number of digits 
         /// after the decimal point to end up with.</param>
-
         public static decimal Ceiling(decimal value, int places = 0)
         {
             if (places < 0) throw new ArgumentOutOfRangeException("places", "Places must be greater than or equal to 0.");
@@ -464,7 +469,6 @@ namespace DecimalMath
         /// same precision as the most precise value.
         /// For example, 1.2 and 0.42 will yield 0.06.
         /// </remarks>
-
         public static decimal GCF(decimal a, decimal b)
         {
             // Run Euclid's algorithm
@@ -482,7 +486,6 @@ namespace DecimalMath
         /// <summary>
         /// Gets the greatest common factor of three or more numbers.
         /// </summary>
-
         public static decimal GCF(decimal a, decimal b, params decimal[] values)
         {
             return values.Aggregate(GCF(a, b), (current, value) => GCF(current, value));
@@ -500,7 +503,6 @@ namespace DecimalMath
         /// natural logarithm: http://en.wikipedia.org/wiki/Natural_logarithm#High_precision
         /// But it didn't yield a precise enough answer.
         /// </remarks>
-
         public static decimal AGMean(decimal x, decimal y)
         {
             decimal a;
@@ -545,7 +547,6 @@ namespace DecimalMath
         /// Simply uses LINQ's Average function, but switches to a potentially less
         /// accurate method of summing each value divided by the number of values.
         /// </remarks>
-
         public static decimal Average(params decimal[] values)
         {
             decimal avg;
@@ -569,7 +570,6 @@ namespace DecimalMath
         /// <remarks>
         /// Started with something found here: http://stackoverflow.com/a/6092298/856595
         /// </remarks>
-
         public static int GetDecimalPlaces(decimal dec, bool countTrailingZeros)
         {
             const int signMask = unchecked((int)0x80000000);
@@ -577,7 +577,7 @@ namespace DecimalMath
             const int scaleShift = 16;
 
             int[] bits = Decimal.GetBits(dec);
-            var result = (bits[3] & scaleMask) >> scaleShift; // extract exponent
+            var result = (bits[3] & scaleMask) >> scaleShift;  // extract exponent
 
             // Return immediately for values without a fractional portion or if we're counting trailing zeros
             if (countTrailingZeros || (result == 0)) return result;
@@ -599,11 +599,10 @@ namespace DecimalMath
         /// <summary>
         /// Gets the remainder of one number divided by another number in such a way as to retain maximum precision.
         /// </summary>
-
         public static decimal Remainder(decimal d1, decimal d2)
         {
             if (Math.Abs(d1) < Math.Abs(d2)) return d1;
-
+            
             var timesInto = decimal.Truncate(d1 / d2);
             var shiftingNumber = d2;
             var sign = Math.Sign(d1);
@@ -624,431 +623,11 @@ namespace DecimalMath
             if (d1 != 0 && Math.Sign(d1) != sign)
             {
                 d1 = Math.Sign(d2) == sign
-                    ? d1 + d2
-                    : d1 - d2;
+                         ? d1 + d2
+                         : d1 - d2;
             }
 
             return d1;
-        }
-
-        /// <summary> The pi (π) constant. Pi radians is equivalent to 180 degrees. </summary>
-        /// <remarks> See http://en.wikipedia.org/wiki/Pi </remarks>
-        public const decimal Pi = 3.1415926535897932384626433833m; // 180 degrees - see http://en.wikipedia.org/wiki/Pi
-
-        /// <summary> π/2 - in radians is equivalent to 90 degrees. </summary> 
-        public const decimal PiHalf = 1.5707963267948966192313216916m; //  90 degrees
-
-        /// <summary> π/4 - in radians is equivalent to 45 degrees. </summary>
-        public const decimal PiQuarter = 0.7853981633974483096156608458m; //  45 degrees
-
-        /// <summary> π/12 - in radians is equivalent to 15 degrees. </summary>
-        public const decimal PiTwelfth = 0.2617993877991494365385536153m; //  15 degrees
-
-        /// <summary> 2π - in radians is equivalent to 360 degrees. </summary>
-        public const decimal TwoPi = 6.2831853071795864769252867666m; // 360 degrees
-
-        /// <summary>
-        /// Smallest non-zero decimal value.
-        /// </summary>
-        public const decimal SmallestNonZeroDec = 0.0000000000000000000000000001m; // aka new decimal(1, 0, 0, false, 28); //1e-28m
-
-        /// <summary>
-        /// The e constant, also known as "Euler's number" or "Napier's constant"
-        /// </summary>
-        /// <remarks>
-        /// Full value is 2.718281828459045235360287471352662497757, 
-        /// see http://mathworld.wolfram.com/e.html
-        /// </remarks>
-        public const decimal E = 2.7182818284590452353602874714m;
-
-        /// <summary>
-        /// The value of the natural logarithm of 10.
-        /// </summary>
-        /// <remarks>
-        /// Full value is: 2.30258509299404568401799145468436420760110148862877297603332790096757
-        /// From: http://oeis.org/A002392/constant
-        /// </remarks>
-        public const decimal Ln10 = 2.3025850929940456840179914547m;
-
-        /// <summary>
-        /// The value of the natural logarithm of 2.
-        /// </summary>
-        /// <remarks>
-        /// Full value is: .693147180559945309417232121458176568075500134360255254120680009493393621969694715605863326996418687
-        /// From: http://oeis.org/A002162/constant
-        /// </remarks>
-        public const decimal Ln2 = 0.6931471805599453094172321215m;
-
-        // Fast access for 10^n
-        internal static readonly decimal[] PowersOf10 = { 1m, 10m, 100m, 1000m, 10000m, 100000m, 1000000m, 10000000m, 100000000m, 1000000000m, 10000000000m, 100000000000m, 1000000000000m, 10000000000000m, 100000000000000m, 1000000000000000m, 10000000000000000m, 100000000000000000m, 1000000000000000000m, 10000000000000000000m, 100000000000000000000m, 1000000000000000000000m, 10000000000000000000000m, 100000000000000000000000m, 1000000000000000000000000m, 10000000000000000000000000m, 100000000000000000000000000m, 1000000000000000000000000000m, 10000000000000000000000000000m, };
-
-        /// <summary>
-        /// Converts degrees to radians. (π radians = 180 degrees)
-        /// </summary>
-        /// <param name="degrees">The degrees to convert.</param>
-
-        public static decimal ToRad(decimal degrees)
-        {
-            if (degrees % 360m == 0)
-            {
-                return (degrees / 360m) * TwoPi;
-            }
-
-            if (degrees % 270m == 0)
-            {
-                return (degrees / 270m) * (Pi + PiHalf);
-            }
-
-            if (degrees % 180m == 0)
-            {
-                return (degrees / 180m) * Pi;
-            }
-
-            if (degrees % 90m == 0)
-            {
-                return (degrees / 90m) * PiHalf;
-            }
-
-            if (degrees % 45m == 0)
-            {
-                return (degrees / 45m) * PiQuarter;
-            }
-
-            if (degrees % 15m == 0)
-            {
-                return (degrees / 15m) * PiTwelfth;
-            }
-
-            return degrees * Pi / 180m;
-        }
-
-        /// <summary>
-        /// Converts radians to degrees. (π radians = 180 degrees)
-        /// </summary>
-        /// <param name="radians">The radians to convert.</param>
-
-        public static decimal ToDeg(decimal radians)
-        {
-            const decimal ratio = 180m / Pi;
-
-            return radians * ratio;
-        }
-
-        /// <summary>
-        /// Normalizes an angle in radians to the 0 to 2Pi interval.
-        /// </summary>
-        /// <param name="radians">Angle in radians.</param>
-
-        public static decimal NormalizeAngle(decimal radians)
-        {
-            radians = Remainder(radians, TwoPi);
-            if (radians < 0) radians += TwoPi;
-            return radians;
-        }
-
-        /// <summary>
-        /// Normalizes an angle in degrees to the 0 to 360 degree interval.
-        /// </summary>
-        /// <param name="degrees">Angle in degrees.</param>
-
-        public static decimal NormalizeAngleDeg(decimal degrees)
-        {
-            degrees = degrees % 360m;
-            if (degrees < 0) degrees += 360m;
-            return degrees;
-        }
-
-        /// <summary>
-        /// Returns the sine of the specified angle.
-        /// </summary>
-        /// <param name="x">An angle, measured in radians.</param>
-        /// <remarks>
-        /// Uses a Taylor series to calculate sine. See 
-        /// http://en.wikipedia.org/wiki/Trigonometric_functions for details.
-        /// </remarks>
-
-        public static decimal Sin(decimal x)
-        {
-            // Normalize to between -2Pi <= x <= 2Pi
-            x = Remainder(x, TwoPi);
-
-            if (x == 0 || x == Pi || x == TwoPi)
-            {
-                return 0;
-            }
-
-            if (x == PiHalf)
-            {
-                return 1;
-            }
-
-            if (x == Pi + PiHalf)
-            {
-                return -1;
-            }
-
-            var result = 0m;
-            var doubleIteration = 0; // current iteration * 2
-            var xSquared = x * x;
-            var nextAdd = 0m;
-
-            while (true)
-            {
-                if (doubleIteration == 0)
-                {
-                    nextAdd = x;
-                }
-                else
-                {
-                    // We multiply by -1 each time so that the sign of the component
-                    // changes each time. The first item is positive and it
-                    // alternates back and forth after that.
-                    // Following is equivalent to: nextAdd *= -1 * x * x / ((2 * iteration) * (2 * iteration + 1));
-                    nextAdd *= -1 * xSquared / (doubleIteration * doubleIteration + doubleIteration);
-                }
-
-                Debug.WriteLine("{0:000}:{1,33:+0.0000000000000000000000000000;-0.0000000000000000000000000000} ->{2,33:+0.0000000000000000000000000000;-0.0000000000000000000000000000}",
-                    doubleIteration / 2, nextAdd, result + nextAdd);
-                if (nextAdd == 0) break;
-
-                result += nextAdd;
-
-                doubleIteration += 2;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the cosine of the specified angle.
-        /// </summary>
-        /// <param name="x">An angle, measured in radians.</param>
-        /// <remarks>
-        /// Uses a Taylor series to calculate sine. See 
-        /// http://en.wikipedia.org/wiki/Trigonometric_functions for details.
-        /// </remarks>
-
-        public static decimal Cos(decimal x)
-        {
-            // Normalize to between -2Pi <= x <= 2Pi
-            x = Remainder(x, TwoPi);
-
-            if (x == 0 || x == TwoPi)
-            {
-                return 1;
-            }
-
-            if (x == Pi)
-            {
-                return -1;
-            }
-
-            if (x == PiHalf || x == Pi + PiHalf)
-            {
-                return 0;
-            }
-
-            var result = 0m;
-            var doubleIteration = 0; // current iteration * 2
-            var xSquared = x * x;
-            var nextAdd = 0m;
-
-            while (true)
-            {
-                if (doubleIteration == 0)
-                {
-                    nextAdd = 1;
-                }
-                else
-                {
-                    // We multiply by -1 each time so that the sign of the component
-                    // changes each time. The first item is positive and it
-                    // alternates back and forth after that.
-                    // Following is equivalent to: nextAdd *= -1 * x * x / ((2 * iteration - 1) * (2 * iteration));
-                    nextAdd *= -1 * xSquared / (doubleIteration * doubleIteration - doubleIteration);
-                }
-
-                if (nextAdd == 0) break;
-
-                result += nextAdd;
-
-                doubleIteration += 2;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the tangent of the specified angle.
-        /// </summary>
-        /// <param name="radians">An angle, measured in radians.</param>
-        /// <remarks>
-        /// Uses a Taylor series to calculate sine. See 
-        /// http://en.wikipedia.org/wiki/Trigonometric_functions for details.
-        /// </remarks>
-
-        public static decimal Tan(decimal radians)
-        {
-            try
-            {
-                return Sin(radians) / Cos(radians);
-            }
-            catch (DivideByZeroException)
-            {
-                throw new Exception("Tangent is undefined at this angle!");
-            }
-        }
-
-        /// <summary>
-        /// Returns the angle whose sine is the specified number.
-        /// </summary>
-        /// <param name="z">A number representing a sine, where -1 ≤d≤ 1.</param>
-        /// <remarks>
-        /// See http://en.wikipedia.org/wiki/Inverse_trigonometric_function
-        /// and http://mathworld.wolfram.com/InverseSine.html
-        /// I originally used the Taylor series for ASin, but it was extremely slow
-        /// around -1 and 1 (millions of iterations) and still ends up being less
-        /// accurate than deriving from the ATan function.
-        /// </remarks>
-
-        public static decimal ASin(decimal z)
-        {
-            if (z < -1 || z > 1)
-            {
-                throw new ArgumentOutOfRangeException("z", "Argument must be in the range -1 to 1 inclusive.");
-            }
-
-            // Special cases
-            if (z == -1) return -PiHalf;
-            if (z == 0) return 0;
-            if (z == 1) return PiHalf;
-
-            return 2m * ATan(z / (1 + Sqrt(1 - z * z)));
-        }
-
-        /// <summary>
-        /// Returns the angle whose cosine is the specified number.
-        /// </summary>
-        /// <param name="z">A number representing a cosine, where -1 ≤d≤ 1.</param>
-        /// <remarks>
-        /// See http://en.wikipedia.org/wiki/Inverse_trigonometric_function
-        /// and http://mathworld.wolfram.com/InverseCosine.html
-        /// </remarks>
-
-        public static decimal ACos(decimal z)
-        {
-            if (z < -1 || z > 1)
-            {
-                throw new ArgumentOutOfRangeException("z", "Argument must be in the range -1 to 1 inclusive.");
-            }
-
-            // Special cases
-            if (z == -1) return Pi;
-            if (z == 0) return PiHalf;
-            if (z == 1) return 0;
-
-            return 2m * ATan(Sqrt(1 - z * z) / (1 + z));
-        }
-
-        /// <summary>
-        /// Returns the angle whose tangent is the quotient of two specified numbers.
-        /// </summary>
-        /// <param name="x">A number representing a tangent.</param>
-        /// <remarks>
-        /// See http://mathworld.wolfram.com/InverseTangent.html for faster converging 
-        /// series from Euler that was used here.
-        /// </remarks>
-
-        public static decimal ATan(decimal x)
-        {
-            // Special cases
-            if (x == -1) return -PiQuarter;
-            if (x == 0) return 0;
-            if (x == 1) return PiQuarter;
-            if (x < -1)
-            {
-                // Force down to -1 to 1 interval for faster convergence
-                return -PiHalf - ATan(1 / x);
-            }
-
-            if (x > 1)
-            {
-                // Force down to -1 to 1 interval for faster convergence
-                return PiHalf - ATan(1 / x);
-            }
-
-            var result = 0m;
-            var doubleIteration = 0; // current iteration * 2
-            var y = (x * x) / (1 + x * x);
-            var nextAdd = 0m;
-
-            while (true)
-            {
-                if (doubleIteration == 0)
-                {
-                    nextAdd = x / (1 + x * x); // is = y / x  but this is better for very small numbers where y = 9
-                }
-                else
-                {
-                    // We multiply by -1 each time so that the sign of the component
-                    // changes each time. The first item is positive and it
-                    // alternates back and forth after that.
-                    // Following is equivalent to: nextAdd *= y * (iteration * 2) / (iteration * 2 + 1);
-                    nextAdd *= y * doubleIteration / (doubleIteration + 1);
-                }
-
-                if (nextAdd == 0) break;
-
-                result += nextAdd;
-
-                doubleIteration += 2;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Returns the angle whose tangent is the quotient of two specified numbers.
-        /// </summary>
-        /// <param name="y">The y coordinate of a point.</param>
-        /// <param name="x">The x coordinate of a point.</param>
-        /// <returns>
-        /// An angle, θ, measured in radians, such that -π≤θ≤π, and tan(θ) = y / x,
-        /// where (x, y) is a point in the Cartesian plane. Observe the following: 
-        /// For (x, y) in quadrant 1, 0 &lt; θ &lt; π/2.
-        /// For (x, y) in quadrant 2, π/2 &lt; θ ≤ π.
-        /// For (x, y) in quadrant 3, -π &lt; θ &lt; -π/2.
-        /// For (x, y) in quadrant 4, -π/2 &lt; θ &lt; 0.
-        /// </returns>
-
-        public static decimal ATan2(decimal y, decimal x)
-        {
-            if (x == 0 && y == 0)
-            {
-                return 0; // X0, Y0
-            }
-
-            if (x == 0)
-            {
-                return y > 0
-                    ? PiHalf // X0, Y+
-                    : -PiHalf; // X0, Y-
-            }
-
-            if (y == 0)
-            {
-                return x > 0
-                    ? 0 // X+, Y0
-                    : Pi; // X-, Y0
-            }
-
-            var aTan = ATan(y / x);
-
-            if (x > 0) return aTan; // Q1&4: X+, Y+-
-
-            return y > 0
-                ? aTan + Pi //   Q2: X-, Y+
-                : aTan - Pi; //   Q3: X-, Y-
         }
     }
 }

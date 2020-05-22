@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Reflection;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
+    /// <summary>
+    /// Static class for generic-types Math operations.
+    /// It can be used as a replacement in generic context.
+    /// </summary>
+    /// <typeparam name="T">the generic numeric type</typeparam>
     public static class Math<T>
     {
         public static readonly Type TheType = typeof(Math<T>);
@@ -22,6 +28,8 @@ namespace Shone
         public static T MinusOne;
         public static T PI;
         public static T E;
+        public static T RadFactor;
+        public static T DegFactor;
 
         public static Func<T, bool> IsNormal = xTrue;
         public static Func<T, bool> IsSubnormal = xFalse;
@@ -159,31 +167,37 @@ namespace Shone
             AddMethods(NumType, fields);
             AddConsts(NumType, fields);
 
-            AddMethods(typeof(MyHelper), fields);
+            AddMethods(typeof(MyOperator), fields);
             AddConverts(typeof(MyConvert), fields);
             if (NumType == MyType.Bool)
             {
                 Math<bool>.MaxValue = Math<bool>.One = true;
             }
-            else if (NumType != MyType.Decimal)
+            else if (!bReal)
             {
-                One = FromInt(1);
-                if (MyType.SignedSet.Contains(NumType))
+                if (NumType != MyType.Decimal)
                 {
-                    MinusOne = FromInt(-1);
+                    One = FromInt(1);
+                    if (MyType.SignedSet.Contains(NumType))
+                    {
+                        MinusOne = FromInt(-1);
+                    }
                 }
-            }
-            if (NumType != MyType.Double)
-            {
-                NegativeInfinity = MinValue;
-                PositiveInfinity = MaxValue;
-#if Net5
-                if (!bFloat)
-#endif
-                if (!bReal)
+                
+                if (NumType != MyType.Double)
                 {
-                    PI = FromDouble(Math.PI);
-                    E = FromDouble(Math.E);
+                    NegativeInfinity = MinValue;
+                    PositiveInfinity = MaxValue;
+#if Net5
+                    if (!bFloat)
+#endif
+                    {
+                        PI = FromDouble(Math.PI);
+                        E = FromDouble(Math.E);
+                    }
+                    var d180 = FromInt(180);
+                    RadFactor = Divide(PI, d180);
+                    DegFactor = Divide(d180, PI);
                 }
             }
         }

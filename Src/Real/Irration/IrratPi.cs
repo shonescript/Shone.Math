@@ -2,13 +2,17 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
-    public class IrratPi : Irration
+    /// <summary>
+    /// Class for irrational PI number
+    /// </summary>
+    public class IrratPI : Irration
     {
         public override RealCode RealCode => RealCode.PI;
 
-        internal IrratPi(double n, double d) : base(n, d)
+        internal IrratPI(double n, double d) : base(n, d)
         {
         }
 
@@ -18,7 +22,7 @@ namespace Shone
         }
         protected override Real create(double n, double d)
         {
-            return new IrratPi(n, d);
+            return new IrratPI(n, d);
         }
 
         public override string ToString(bool bSource)
