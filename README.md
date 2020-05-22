@@ -3,7 +3,7 @@
     
 Create a dotnet generic math type is never easy. 
 
-This libray wrappers all math methods from Math,MathF,DecimalMath(from NumSharp),Convert and all the system numeric classes into ONE generic Math\<T\> class.
+This libray wrappers all math methods from Math,MathF,DecimalMath(from https://github.com/nathanpjones/DecimalMath),Convert and all the system numeric classes into ONE generic Math\<T\> class.
 
 With the Math\<T\> class from Shone.Math, you can write .NET generic math codes EASILY and HAPPILY!
 
