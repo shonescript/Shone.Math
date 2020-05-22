@@ -96,7 +96,11 @@ namespace Shone
 
         protected string toString(string suffix)
         {
-            if (suffix == null || !Data.IsFinite())
+#if Net5
+            if (suffix == null || !double.IsFinite(Data))
+#else
+            if (suffix == null || double.IsInfinity(Data) || double.IsNaN(Data))
+#endif
             {
                 if (stringCaches.ContainsKey(this)) return stringCaches[this];
                 return Data.ToString("r");

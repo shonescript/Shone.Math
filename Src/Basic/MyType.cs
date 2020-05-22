@@ -15,7 +15,7 @@ namespace Shone
         public static Type SByte = typeof(sbyte);
         public static Type Byte = typeof(byte);
         public static Type Short = typeof(short);
-        public static Type UShort = typeof(uint);
+        public static Type UShort = typeof(ushort);
         public static Type Int = typeof(int);
         public static Type UInt = typeof(uint);
         public static Type Long = typeof(long);
@@ -29,5 +29,23 @@ namespace Shone
         public static HashSet<Type> NumberSet = new HashSet<Type> { Bool, Char, SByte, Byte, Short, UShort, Int, UInt, Long, ULong, Float, Double, Decimal, Real };
         public static HashSet<Type> UnsignedSet = new HashSet<Type> { Byte, Char, UShort, UInt, ULong };
         public static HashSet<Type> SignedSet = new HashSet<Type> { SByte, Short, Int, Long, Float, Double, Decimal, Real };
+     
+        public static readonly Dictionary<Type, string> MyNameDict = new Dictionary<Type, string>
+        {
+            { Bool, "Bool" },
+            { Byte, "Byte"},
+            { SByte, "SByte"},
+            { Short, "Short"} ,
+            { UShort, "UShort"} ,
+            { Char, "Char" },
+            { Int, "Int" },
+            { UInt, "UInt" },
+            { Long, "Long"} ,
+            { ULong, "ULong" },
+            { Float, "Float"} ,
+            { Double, "Double"},
+            { Decimal, "Decimal"},
+            { Real, "Real"}
+        };
     }
 }

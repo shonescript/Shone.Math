@@ -3,16 +3,19 @@ using System;
 //All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
-    public static class MyNum
+    /// <summary>
+    /// Helper class auto gerated for generic number T extension
+    /// </summary>
+    public static class MyNumber
     {
         public static Boolean IsNormal<T>(this T a1) => Math<T>.IsNormal(a1);
         public static Boolean IsSubnormal<T>(this T a1) => Math<T>.IsSubnormal(a1);
         public static Boolean IsFinite<T>(this T a1) => Math<T>.IsFinite(a1);
-        public static Boolean IsInfinity<T>(this T a1) => Math<T>.IsInfinity(a1);
         public static Boolean IsNaN<T>(this T a1) => Math<T>.IsNaN(a1);
-        public static Boolean IsNegative<T>(this T a1) => Math<T>.IsNegative(a1);
-        public static Boolean IsNegativeInfinity<T>(this T a1) => Math<T>.IsNegativeInfinity(a1);
+        public static Boolean IsInfinity<T>(this T a1) => Math<T>.IsInfinity(a1);
         public static Boolean IsPositiveInfinity<T>(this T a1) => Math<T>.IsPositiveInfinity(a1);
+        public static Boolean IsNegativeInfinity<T>(this T a1) => Math<T>.IsNegativeInfinity(a1);
+        public static Boolean IsNegative<T>(this T a1) => Math<T>.IsNegative(a1);
         public static T Negate<T>(this T a1) => Math<T>.Negate(a1);
         public static T Increase<T>(this T a1) => Math<T>.Increase(a1);
         public static T Decrease<T>(this T a1) => Math<T>.Decrease(a1);
@@ -36,7 +39,7 @@ namespace Shone
         public static Boolean GreatEqual<T>(this T a1, T a2) => Math<T>.GreatEqual(a1, a2);
         public static Boolean Equal<T>(this T a1, T a2) => Math<T>.Equal(a1, a2);
         public static Boolean NotEqual<T>(this T a1, T a2) => Math<T>.NotEqual(a1, a2);
-        public static Boolean ToBoolean<T>(this T a1) => Math<T>.ToBool(a1);
+        public static Boolean ToBool<T>(this T a1) => Math<T>.ToBool(a1);
         public static Char ToChar<T>(this T a1) => Math<T>.ToChar(a1);
         public static SByte ToSByte<T>(this T a1) => Math<T>.ToSByte(a1);
         public static Byte ToByte<T>(this T a1) => Math<T>.ToByte(a1);
@@ -49,6 +52,7 @@ namespace Shone
         public static Single ToFloat<T>(this T a1) => Math<T>.ToFloat(a1);
         public static Double ToDouble<T>(this T a1) => Math<T>.ToDouble(a1);
         public static Decimal ToDecimal<T>(this T a1) => Math<T>.ToDecimal(a1);
+        public static Real ToReal<T>(this T a1) => Math<T>.ToReal(a1);
         public static T Parse<T>(this String a1) => Math<T>.Parse(a1);
         public static Int32 Sign<T>(this T a1) => Math<T>.Sign(a1);
         public static T Sqrt<T>(this T a1) => Math<T>.Sqrt(a1);
@@ -75,10 +79,26 @@ namespace Shone
         public static T Acos<T>(this T a1) => Math<T>.Acos(a1);
         public static T Atan<T>(this T a1) => Math<T>.Atan(a1);
         public static T Atan2<T>(this T a1, T a2) => Math<T>.Atan2(a1, a2);
- #if Net5
+#if Net5
         public static T Asinh<T>(this T a1) => Math<T>.Asinh(a1);
         public static T Acosh<T>(this T a1) => Math<T>.Acosh(a1);
         public static T Atanh<T>(this T a1) => Math<T>.Atanh(a1);
 #endif
+        public static T SinDeg<T>(this T a1) => Math<T>.SinDeg(a1);
+        public static T CosDeg<T>(this T a1) => Math<T>.CosDeg(a1);
+        public static T TanDeg<T>(this T a1) => Math<T>.TanDeg(a1);
+        public static T SinhDeg<T>(this T a1) => Math<T>.SinhDeg(a1);
+        public static T CoshDeg<T>(this T a1) => Math<T>.CoshDeg(a1);
+        public static T TanhDeg<T>(this T a1) => Math<T>.TanhDeg(a1);
+        public static T AsinDeg<T>(this T a1) => Math<T>.AsinDeg(a1);
+        public static T AcosDeg<T>(this T a1) => Math<T>.AcosDeg(a1);
+        public static T AtanDeg<T>(this T a1) => Math<T>.AtanDeg(a1);
+        public static T AtanDeg2<T>(this T a1, T a2) => Math<T>.AtanDeg2(a1, a2);
+#if Net5
+        public static T AsinhDeg<T>(this T a1) => Math<T>.AsinhDeg(a1);
+        public static T AcoshDeg<T>(this T a1) => Math<T>.AcoshDeg(a1);
+        public static T AtanhDeg<T>(this T a1) => Math<T>.AtanhDeg(a1);
+#endif
+
     }
 }

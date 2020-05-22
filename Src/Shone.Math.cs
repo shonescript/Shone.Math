@@ -11,8 +11,7 @@ namespace Shone
     /// <typeparam name="T">the generic numeric type</typeparam>
     public static class Math<T>
     {
-        public static readonly Type TheType = typeof(Math<T>);
-        public static readonly Type NumType = typeof(T);
+        static readonly Type NumType = typeof(T);
         static Func<T, bool> xTrue = x => true;
         static Func<T, bool> xFalse = x => false;
         static Func<T, T> xSelf = x => x;
@@ -127,7 +126,6 @@ namespace Shone
         public static Func<T, T> Sinh = x => FromDouble(Math.Sinh(ToDouble(x)));
         public static Func<T, T> Cosh = x => FromDouble(Math.Cosh(ToDouble(x)));
         public static Func<T, T> Tanh = x => FromDouble(Math.Tanh(ToDouble(x)));
-
         public static Func<T, T> Asin = x => FromDouble(Math.Asin(ToDouble(x)));
         public static Func<T, T> Acos = x => FromDouble(Math.Acos(ToDouble(x)));
         public static Func<T, T> Atan = x => FromDouble(Math.Atan(ToDouble(x)));
@@ -138,9 +136,25 @@ namespace Shone
         public static Func<T, T> Atanh = x => FromDouble(Math.Atanh(ToDouble(x)));
 #endif
 
+        public static Func<T, T> SinDeg = x => Sin(Multiply(x, RadFactor));
+        public static Func<T, T> CosDeg = x => Cos(Multiply(x, RadFactor));
+        public static Func<T, T> TanDeg = x => Tan(Multiply(x, RadFactor));
+        public static Func<T, T> SinhDeg = x => Sinh(Multiply(x, RadFactor));
+        public static Func<T, T> CoshDeg = x => Cosh(Multiply(x, RadFactor));
+        public static Func<T, T> TanhDeg = x => Tanh(Multiply(x, RadFactor));
+        public static Func<T, T> AsinDeg = x => Multiply(Asin(x), DegFactor);
+        public static Func<T, T> AcosDeg = x => Multiply(Acos(x), DegFactor);
+        public static Func<T, T> AtanDeg = x => Multiply(Atan(x), DegFactor);
+        public static Func<T, T, T> AtanDeg2 = (x, y) => Multiply(Atan2(x, y), DegFactor);
+#if Net5
+        public static Func<T, T> AsinhDeg = x => Multiply(Asinh(x), DegFactor);
+        public static Func<T, T> AcoshDeg = x => Multiply(Acosh(x), DegFactor);
+        public static Func<T, T> AtanhDeg = x => Multiply(Atanh(x), DegFactor);
+#endif
+
         static Math()
         {
-            var fields = TheType.GetFields(MyReflection.PublicStatic);
+            var fields = typeof(Math<T>).GetFields(MyReflection.PublicStatic);
             var bFloat = NumType == MyType.Float;
 #if Net5
             if (bFloat)
@@ -169,6 +183,7 @@ namespace Shone
 
             AddMethods(typeof(MyOperator), fields);
             AddConverts(typeof(MyConvert), fields);
+
             if (NumType == MyType.Bool)
             {
                 Math<bool>.MaxValue = Math<bool>.One = true;
@@ -183,7 +198,7 @@ namespace Shone
                         MinusOne = FromInt(-1);
                     }
                 }
-                
+
                 if (NumType != MyType.Double)
                 {
                     NegativeInfinity = MinValue;
@@ -276,7 +291,7 @@ namespace Shone
         private static void AddConverts(Type extension, FieldInfo[] fields)
         {
             var ms = extension.GetMethods(MyReflection.PublicStatic);
-            var toName = "To" + NumType.Name;
+            var toName = "To" + MyType.MyNameDict[NumType];
             foreach (var m in ms)
             {
                 var paras = m.GetParameters();
@@ -290,7 +305,7 @@ namespace Shone
                 }
                 if (m.ReturnType == NumType && name == toName)
                 {
-                    setDelegate(fields, "From" + from.Name, m);
+                    setDelegate(fields, "From" + MyType.MyNameDict[from], m);
                 }
             }
         }
