@@ -1,4 +1,3 @@
-There are some blogs about the detail implementation of Shone.Math in Chinese. See the link 
 # Shone.Math .NET5 library
 ## An elementary math library supporting generic Math\<T\> and Rational/Irrational number for .NET 5
     
