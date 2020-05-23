@@ -71,7 +71,6 @@ namespace Shone
         public static double[] ToDouble<T>(this T[] a1) => Func(a1, Math<T>.ToDouble);
         public static decimal[] ToDecimal<T>(this T[] a1) => Func(a1, Math<T>.ToDecimal);
         public static Real[] ToReal<T>(this T[] a1) => Func(a1, Math<T>.ToReal);
-        public static T[] Parse<T>(this String[] a1) => Func(a1, Math<T>.Parse);
         public static int[] Sign<T>(this T[] a1) => Func(a1, Math<T>.Sign);
         public static T[] Sqrt<T>(this T[] a1) => Func(a1, Math<T>.Sqrt);
         public static T[] Cbrt<T>(this T[] a1) => Func(a1, Math<T>.Cbrt);

@@ -10,7 +10,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            //MyCode.AutoGenerate();
+            MyCode.AutoGenerate();
 
             var mt = typeof(Math<>);
             foreach (var t in MyType.NumberSet)
