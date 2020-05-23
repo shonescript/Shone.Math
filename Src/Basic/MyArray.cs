@@ -8,7 +8,7 @@ namespace Shone
     /// </summary>
     public static partial class MyArray
     {
-        public static T1[] Map<T, T1>(T[] a1, Func<T, T1> func)
+        public static T1[] Func<T, T1>(this T[] a1, Func<T, T1> func)
         {
             var n = a1.Length;
             var result = new T1[n];
@@ -18,8 +18,7 @@ namespace Shone
             }
             return result;
         }
-
-        public static T1[] Map<T, T1>(T[] a1, T a2, Func<T, T, T1> func)
+        public static T1[] Func<T, T1>(this T[] a1, T a2, Func<T, T, T1> func)
         {
             var n = a1.Length;
             var result = new T1[n];
@@ -29,8 +28,7 @@ namespace Shone
             }
             return result;
         }
-
-        public static T1[] Map<T, T1>(T[] a1, T[] a2, Func<T, T, T1> func)
+        public static T1[] Func<T, T1>(this T[] a1, T[] a2, Func<T, T, T1> func)
         {
             var n = a1.Length;
             var result = new T1[n];

@@ -105,11 +105,7 @@ namespace Shone
         public static Func<T, T> Exp = x => FromDouble(Math.Exp(ToDouble(x)));
         public static Func<T, T, T> Pow = (x, y) => FromDouble(Math.Pow(ToDouble(x), ToDouble(y)));
         public static Func<T, T> Log = x => FromDouble(Math.Log(ToDouble(x)));
-#if Net5
         public static Func<T, T> Log2 = x => FromDouble(Math.Log2(ToDouble(x)));
-#else
-        public static Func<T, T> Log2 = x => Logx(x, FromInt(2));
-#endif
         public static Func<T, T> Log10 = x => FromDouble(Math.Log10(ToDouble(x)));
         public static Func<T, T, T> Logx = (x, y) => FromDouble(Math.Log(ToDouble(x), ToDouble(y)));
 
@@ -130,11 +126,9 @@ namespace Shone
         public static Func<T, T> Acos = x => FromDouble(Math.Acos(ToDouble(x)));
         public static Func<T, T> Atan = x => FromDouble(Math.Atan(ToDouble(x)));
         public static Func<T, T, T> Atan2 = (x, y) => FromDouble(Math.Atan2(ToDouble(x), ToDouble(y)));
-#if Net5
         public static Func<T, T> Asinh = x => FromDouble(Math.Asinh(ToDouble(x)));
         public static Func<T, T> Acosh = x => FromDouble(Math.Acosh(ToDouble(x)));
         public static Func<T, T> Atanh = x => FromDouble(Math.Atanh(ToDouble(x)));
-#endif
 
         public static Func<T, T> SinDeg = x => Sin(Multiply(x, RadFactor));
         public static Func<T, T> CosDeg = x => Cos(Multiply(x, RadFactor));
@@ -146,24 +140,20 @@ namespace Shone
         public static Func<T, T> AcosDeg = x => Multiply(Acos(x), DegFactor);
         public static Func<T, T> AtanDeg = x => Multiply(Atan(x), DegFactor);
         public static Func<T, T, T> AtanDeg2 = (x, y) => Multiply(Atan2(x, y), DegFactor);
-#if Net5
         public static Func<T, T> AsinhDeg = x => Multiply(Asinh(x), DegFactor);
         public static Func<T, T> AcoshDeg = x => Multiply(Acosh(x), DegFactor);
         public static Func<T, T> AtanhDeg = x => Multiply(Atanh(x), DegFactor);
-#endif
 
         static Math()
         {
             var fields = typeof(Math<T>).GetFields(MyReflection.PublicStatic);
             var bFloat = NumType == MyType.Float;
-#if Net5
             if (bFloat)
             {
                 var mf = typeof(MathF);
                 AddMethods(mf, fields);
                 AddConsts(mf, fields);
             }
-#endif
 
             var mathType = typeof(Math);
             AddMethods(mathType, fields);
@@ -203,9 +193,7 @@ namespace Shone
                 {
                     NegativeInfinity = MinValue;
                     PositiveInfinity = MaxValue;
-#if Net5
                     if (!bFloat)
-#endif
                     {
                         PI = FromDouble(Math.PI);
                         E = FromDouble(Math.E);
@@ -244,11 +232,7 @@ namespace Shone
                 {
                     try
                     {
-#if Net5
                         field.SetValue(null, m.CreateDelegate(field.FieldType));
-#else
-                        field.SetValue(null, Delegate.CreateDelegate(field.FieldType, m));
-#endif
                     }
                     catch
                     {
@@ -291,7 +275,7 @@ namespace Shone
         private static void AddConverts(Type extension, FieldInfo[] fields)
         {
             var ms = extension.GetMethods(MyReflection.PublicStatic);
-            var toName = "To" + MyType.MyNameDict[NumType];
+            var toName = "To" + MyType.ShortNames[NumType];
             foreach (var m in ms)
             {
                 var paras = m.GetParameters();
@@ -305,7 +289,7 @@ namespace Shone
                 }
                 if (m.ReturnType == NumType && name == toName)
                 {
-                    setDelegate(fields, "From" + MyType.MyNameDict[from], m);
+                    setDelegate(fields, "From" + MyType.ShortNames[from], m);
                 }
             }
         }

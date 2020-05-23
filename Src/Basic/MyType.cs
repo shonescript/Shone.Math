@@ -29,8 +29,8 @@ namespace Shone
         public static HashSet<Type> NumberSet = new HashSet<Type> { Bool, Char, SByte, Byte, Short, UShort, Int, UInt, Long, ULong, Float, Double, Decimal, Real };
         public static HashSet<Type> UnsignedSet = new HashSet<Type> { Byte, Char, UShort, UInt, ULong };
         public static HashSet<Type> SignedSet = new HashSet<Type> { SByte, Short, Int, Long, Float, Double, Decimal, Real };
-     
-        public static readonly Dictionary<Type, string> MyNameDict = new Dictionary<Type, string>
+
+        public static readonly Dictionary<Type, string> ShortNames = new Dictionary<Type, string>
         {
             { Bool, "Bool" },
             { Byte, "Byte"},
@@ -45,6 +45,23 @@ namespace Shone
             { Float, "Float"} ,
             { Double, "Double"},
             { Decimal, "Decimal"},
+            { Real, "Real"}
+        };
+        public static readonly Dictionary<Type, string> AliaNames = new Dictionary<Type, string>
+        {
+            { Bool, "bool" },
+            { Byte, "byte"},
+            { SByte, "sbyte"},
+            { Short, "short"} ,
+            { UShort, "ushort"} ,
+            { Char, "char" },
+            { Int, "int" },
+            { UInt, "uint" },
+            { Long, "long"} ,
+            { ULong, "ulong" },
+            { Float, "float"} ,
+            { Double, "double"},
+            { Decimal, "decimal"},
             { Real, "Real"}
         };
     }

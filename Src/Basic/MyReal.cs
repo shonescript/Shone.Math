@@ -10,11 +10,9 @@ namespace Shone
     /// </summary>
     public static class MyReal
     {
-#if Net5
         public static bool IsNormal(this Real d) => double.IsNormal(d.Data);
         public static bool IsSubnormal(this Real d) => double.IsSubnormal(d.Data);
         public static bool IsFinite(this Real d) => double.IsFinite(d.Data);
-#endif
         public static bool IsInfinity(this Real d) => double.IsInfinity(d.Data);
         public static bool IsNegativeInfinity(this Real d) => double.IsNegativeInfinity(d.Data);
         public static bool IsPositiveInfinity(this Real d) => double.IsPositiveInfinity(d.Data);
@@ -22,9 +20,7 @@ namespace Shone
         public static Real Sign(Real d) => d.Sign;
         public static Real Abs(Real d) => d.Abs;
         public static Real Sqrt(Real d) => d.Sqrt;
-#if Net5
         public static Real Cbrt(Real d) => Math.Cbrt(d.Data);
-#endif
         public static Real Exp(Real d) => d.Exp;
         public static Real Log(Real d) => d.Log;
         public static Real Log10(Real d) => d.Log10;
@@ -48,10 +44,8 @@ namespace Shone
         public static Real Acos(this Real x) => Math.Acos(x.Data);
         public static Real Atan(this Real x) => Math.Atan(x.Data);
         public static Real Atan2(this Real y, Real x) => Math.Atan2(y.Data, x.Data);
-#if Net5
         public static Real Asinh(this Real x) => Math.Asinh(x.Data);
         public static Real Acosh(this Real x) => Math.Acosh(x.Data);
         public static Real Atanh(this Real x) => Math.Atanh(x.Data);
-#endif
     }
 }
