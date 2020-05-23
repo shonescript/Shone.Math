@@ -12,7 +12,10 @@ namespace Shone
     {
         public static BindingFlags PublicStatic = BindingFlags.Public | BindingFlags.Static;
 
+        public static Dictionary<string, string> ConstNameMaps = new Dictionary<string, string>{
+        { "Pi", "PI" }};
         public static Dictionary<string, string> MethodNameMaps = new Dictionary<string, string>{
+        { "Pi", "PI" },
         { "ASin", "Asin" },
         { "ACos", "Acos" },
         { "ATan", "Atan" },

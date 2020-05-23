@@ -44,7 +44,7 @@ namespace Shone
             foreach (var f in fs)
             {
                 var name = f.Name;
-                if (name.StartsWith("From")) continue;
+                if (name.StartsWith("From") || name.EndsWith("Parse")) continue;
                 var o = f.GetValue(null);
                 if (o is Delegate d)
                 {

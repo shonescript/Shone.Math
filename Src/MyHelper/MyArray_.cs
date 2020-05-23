@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 //All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone

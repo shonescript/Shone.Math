@@ -97,6 +97,7 @@ namespace Shone
         public static Func<T, Real> ToReal;
 
         public static Func<string, T> Parse;
+        public static TryParseDelegate TryParse;
 
         public static Func<T, int> Sign = x => Math.Sign(ToInt(x));
         public static Func<T, T> Abs => x => FromInt(Math.Abs(ToInt(x)));
@@ -144,6 +145,8 @@ namespace Shone
         public static Func<T, T> AcoshDeg = x => Multiply(Acosh(x), DegFactor);
         public static Func<T, T> AtanhDeg = x => Multiply(Atanh(x), DegFactor);
 
+        public delegate bool TryParseDelegate(string s, out T t);
+
         static Math()
         {
             var fields = typeof(Math<T>).GetFields(MyReflection.PublicStatic);
@@ -160,13 +163,16 @@ namespace Shone
             AddConsts(mathType, fields);
 
             var bReal = NumType == MyType.Real;
+            var bDecimal = NumType == MyType.Decimal;
             if (bReal)
             {
                 AddMethods(typeof(MyReal), fields);
             }
-            else if (NumType == MyType.Decimal)
+            else if (bDecimal)
             {
-                AddMethods(typeof(DecimalMath.DecimalEx), fields);
+                var mf = typeof(DecimalMath.DecimalEx);
+                AddMethods(mf, fields);
+                AddConsts(mf, fields);
             }
             AddMethods(NumType, fields);
             AddConsts(NumType, fields);
@@ -180,7 +186,7 @@ namespace Shone
             }
             else if (!bReal)
             {
-                if (NumType != MyType.Decimal)
+                if (!bDecimal)
                 {
                     One = FromInt(1);
                     if (MyType.SignedSet.Contains(NumType))
@@ -193,7 +199,7 @@ namespace Shone
                 {
                     NegativeInfinity = MinValue;
                     PositiveInfinity = MaxValue;
-                    if (!bFloat)
+                    if (!bFloat && !bDecimal)
                     {
                         PI = FromDouble(Math.PI);
                         E = FromDouble(Math.E);
@@ -210,9 +216,11 @@ namespace Shone
             var fs = extension.GetFields(MyReflection.PublicStatic);
             foreach (var f in fs)
             {
+                var name = f.Name;
+                if (MyReflection.ConstNameMaps.ContainsKey(name))
+                    name = MyReflection.ConstNameMaps[name];
                 if (f.FieldType == NumType)
                 {
-                    var name = f.Name;
                     foreach (var field in fields)
                     {
                         if (field.Name == name)
@@ -259,10 +267,11 @@ namespace Shone
                 var rBool = rt == MyType.Bool;
                 var bTwo = k == 2;
                 var bNums = para.ParameterType == NumType;
+                var bStr = para.ParameterType == MyType.String;
                 if (bTwo) bNums = bNums && paras[1].ParameterType == NumType;
 
                 if (bNums && (rNum || rBool || rInt) ||
-                    k == 1 && para.ParameterType == MyType.String)
+                    bStr && (k == 1 || bTwo && paras[1].ParameterType.IsByRef))
                 {
                     if (MyReflection.MethodNameMaps.ContainsKey(name))
                         name = MyReflection.MethodNameMaps[name];

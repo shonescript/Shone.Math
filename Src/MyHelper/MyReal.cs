@@ -17,7 +17,7 @@ namespace Shone
         public static bool IsNegativeInfinity(this Real d) => double.IsNegativeInfinity(d.Data);
         public static bool IsPositiveInfinity(this Real d) => double.IsPositiveInfinity(d.Data);
 
-        public static Real Sign(Real d) => d.Sign;
+        public static int Sign(Real d) => d.Sign;
         public static Real Abs(Real d) => d.Abs;
         public static Real Sqrt(Real d) => d.Sqrt;
         public static Real Cbrt(Real d) => Math.Cbrt(d.Data);

@@ -43,7 +43,7 @@ namespace Shone
         public virtual bool IsRation => true;
         public virtual bool IsIrration => false;
 
-        public virtual Real Sign => From(Math.Sign(Data));
+        public int Sign => Math.Sign(Data);
         public virtual Real Abs => From(Math.Abs(Data));
         public virtual Real Invert => From(1, Data);
         public virtual Real Percent => From(Data, 100);
