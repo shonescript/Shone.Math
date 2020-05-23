@@ -8,6 +8,8 @@
     <PackageId>Shone.Math</PackageId>
     <Authors>Shone</Authors>
     <Description>A generic-types Math&lt;T&gt; and Real numeric library for .NET5</Description>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
