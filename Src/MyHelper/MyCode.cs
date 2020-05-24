@@ -26,7 +26,7 @@ namespace Shone
 
         static void GenMethods(StringBuilder sb, Type t, string name)
         {
-            var ts = MyType.AliaNames[t];
+            var ts = t.AliaName();
             if (MyReflection.Op1NameMaps.ContainsKey(name))
                 sb.Append($"        public static {ts} {name}({ts} x) => {MyReflection.Op1NameMaps[name]} x;\r\n");
             else if (MyReflection.Op2NameMaps.ContainsKey(name))
@@ -58,8 +58,7 @@ namespace Shone
         }
         static string TStr(Type t, string name, bool inPara = false)
         {
-            var ts = MyType.AliaNames.ContainsKey(t) ? MyType.AliaNames[t] : t.Name;
-            return t == MyType.Double && ((inPara && name == "ToDouble") || !name.EndsWith("Double")) ? "T" : ts;
+            return t == MyType.Double && ((inPara && name == "ToDouble") || !name.EndsWith("Double")) ? "T" : t.AliaName();
         }
 
         static void GenerateNumCode()

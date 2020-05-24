@@ -26,11 +26,7 @@ namespace Shone
         public static Type Real = typeof(Real);
         public static Type String = typeof(string);
 
-        public static HashSet<Type> NumberSet = new HashSet<Type> { Bool, Char, SByte, Byte, Short, UShort, Int, UInt, Long, ULong, Float, Double, Decimal, Real };
-        public static HashSet<Type> UnsignedSet = new HashSet<Type> { Byte, Char, UShort, UInt, ULong };
-        public static HashSet<Type> SignedSet = new HashSet<Type> { SByte, Short, Int, Long, Float, Double, Decimal, Real };
-
-        public static readonly Dictionary<Type, string> ShortNames = new Dictionary<Type, string>
+        static readonly Dictionary<Type, string> ShortNames = new Dictionary<Type, string>
         {
             { Bool, "Bool" },
             { Byte, "Byte"},
@@ -47,7 +43,7 @@ namespace Shone
             { Decimal, "Decimal"},
             { Real, "Real"}
         };
-        public static readonly Dictionary<Type, string> AliaNames = new Dictionary<Type, string>
+        static readonly Dictionary<Type, string> AliaNames = new Dictionary<Type, string>
         {
             { Bool, "bool" },
             { Byte, "byte"},
@@ -61,8 +57,48 @@ namespace Shone
             { ULong, "ulong" },
             { Float, "float"} ,
             { Double, "double"},
-            { Decimal, "decimal"},
-            { Real, "Real"}
+            { Decimal, "decimal"}
         };
+
+        internal static Dictionary<Type, Type> ExtensionSet = new Dictionary<Type, Type>
+        {
+           { Decimal, typeof( DecimalMath.DecimalEx) },
+           { Real, typeof( MyReal) }
+        };
+        internal static HashSet<Type> ConvertSet = new HashSet<Type>
+        {
+           { typeof(MyConvert) },
+           { Decimal },
+           { Real }
+        };
+
+        public static HashSet<Type> WholeNumSet = new HashSet<Type> { Bool, Char, SByte, Byte, Short, UShort, Int, UInt, Long, ULong, Float, Double, Decimal, Real };
+        internal static HashSet<Type> HasOneSet = new HashSet<Type> { Decimal, Real };
+        internal static HashSet<Type> UnsignedSet = new HashSet<Type> { Bool, Char, Byte, UShort, UInt, ULong };
+        internal static HashSet<Type> IEEESet = new HashSet<Type> { Float, Double, Real };
+
+        public static void RegisterNumExtension(Type numType, string shortName, bool hasOne = false, bool unSinged = false, bool isIEEE = false, Type extension = null)
+        {
+            if (shortName != null) ShortNames[numType] = shortName;
+            if (hasOne) HasOneSet.Add(numType);
+            if (unSinged) UnsignedSet.Add(numType);
+            if (isIEEE) IEEESet.Add(numType);
+            if (extension != null) ExtensionSet[numType] = extension;
+            ConvertSet.Add(numType);
+        }
+
+        public static void RegisterNumConvert(Type convert)
+        {
+            ConvertSet.Add(convert);
+        }
+
+        public static string ShortName(this Type type)
+        {
+            return ShortNames.ContainsKey(type) ? ShortNames[type] : type.Name;
+        }
+        public static string AliaName(this Type type)
+        {
+            return AliaNames.ContainsKey(type) ? ShortNames[type] : type.Name;
+        }
     }
 }

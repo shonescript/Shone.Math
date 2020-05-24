@@ -115,6 +115,10 @@ namespace Shone
         {
             return toString(bSource ? "r" : null);
         }
+        public override string ToString()
+        {
+            return toString("r");
+        }
 
         public TypeCode GetTypeCode() => TypeCode.Double;
         public string ToString(string format) => Data.ToString(format);
@@ -691,6 +695,7 @@ namespace Shone
             return true;
         }
 
+        public static implicit operator Real(bool x) => x ? One : Zero;
         public static implicit operator Real(byte x) => From(x);
         public static implicit operator Real(sbyte x) => From(x);
         public static implicit operator Real(short x) => From(x);

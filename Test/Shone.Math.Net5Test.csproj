@@ -10,6 +10,10 @@
     <OutputPath>C:\Hjx\Shone2020\Shone.Math\</OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\Hjx\Shone2020\Shone.Math\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="TestApp.cs" />
   </ItemGroup>

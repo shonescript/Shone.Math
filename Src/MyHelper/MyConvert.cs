@@ -21,7 +21,6 @@ namespace Shone
         public static float ToFloat(bool d) => d ? 1f : 0f;
         public static double ToDouble(bool d) => d ? 1d : 0d;
         public static decimal ToDecimal(bool d) => d ? 1m : 0m;
-        public static Real ToReal(bool d) => d ? 1 : 0;
 
         public static bool ToBool(byte d) => d != 0;
         public static byte ToByte(byte d) => d;
@@ -35,8 +34,6 @@ namespace Shone
         public static ulong ToULong(byte d) => d;
         public static float ToFloat(byte d) => d;
         public static double ToDouble(byte d) => d;
-        public static decimal ToDecimal(byte d) => d;
-        public static Real ToReal(byte d) => d;
 
         public static bool ToBool(sbyte d) => d != 0;
         public static byte ToByte(sbyte d) => (byte)d;
@@ -50,8 +47,6 @@ namespace Shone
         public static ulong ToULong(sbyte d) => (ulong)d;
         public static float ToFloat(sbyte d) => d;
         public static double ToDouble(sbyte d) => d;
-        public static decimal ToDecimal(sbyte d) => d;
-        public static Real ToReal(sbyte d) => d;
 
         public static bool ToBool(char d) => d != 0;
         public static byte ToByte(char d) => (byte)d;
@@ -65,8 +60,6 @@ namespace Shone
         public static ulong ToULong(char d) => d;
         public static float ToFloat(char d) => d;
         public static double ToDouble(char d) => d;
-        public static decimal ToDecimal(char d) => d;
-        public static Real ToReal(char d) => d;
 
         public static bool ToBool(short d) => d != 0;
         public static byte ToByte(short d) => (byte)d;
@@ -80,8 +73,6 @@ namespace Shone
         public static ulong ToULong(short d) => (ulong)d;
         public static float ToFloat(short d) => d;
         public static double ToDouble(short d) => d;
-        public static decimal ToDecimal(short d) => d;
-        public static Real ToReal(short d) => d;
 
         public static bool ToBool(ushort d) => d != 0;
         public static byte ToByte(ushort d) => (byte)d;
@@ -95,8 +86,6 @@ namespace Shone
         public static ulong ToULong(ushort d) => d;
         public static float ToFloat(ushort d) => d;
         public static double ToDouble(ushort d) => d;
-        public static decimal ToDecimal(ushort d) => d;
-        public static Real ToReal(ushort d) => d;
 
         public static bool ToBool(int d) => d != 0;
         public static byte ToByte(int d) => (byte)d;
@@ -110,8 +99,6 @@ namespace Shone
         public static ulong ToULong(int d) => (ulong)d;
         public static float ToFloat(int d) => d;
         public static double ToDouble(int d) => d;
-        public static decimal ToDecimal(int d) => d;
-        public static Real ToReal(int d) => d;
 
         public static bool ToBool(uint d) => d != 0;
         public static byte ToByte(uint d) => (byte)d;
@@ -125,8 +112,6 @@ namespace Shone
         public static ulong ToULong(uint d) => d;
         public static float ToFloat(uint d) => d;
         public static double ToDouble(uint d) => d;
-        public static decimal ToDecimal(uint d) => d;
-        public static Real ToReal(uint d) => d;
 
         public static bool ToBool(long d) => d != 0;
         public static byte ToByte(long d) => (byte)d;
@@ -140,8 +125,6 @@ namespace Shone
         public static ulong ToULong(long d) => (ulong)d;
         public static float ToFloat(long d) => d;
         public static double ToDouble(long d) => d;
-        public static decimal ToDecimal(long d) => d;
-        public static Real ToReal(long d) => d;
 
         public static bool ToBool(ulong d) => d != 0;
         public static byte ToByte(ulong d) => (byte)d;
@@ -155,8 +138,6 @@ namespace Shone
         public static ulong ToULong(ulong d) => d;
         public static float ToFloat(ulong d) => d;
         public static double ToDouble(ulong d) => d;
-        public static decimal ToDecimal(ulong d) => d;
-        public static Real ToReal(ulong d) => d;
 
         public static bool ToBool(float d) => d != 0;
         public static byte ToByte(float d) => (byte)d;
@@ -170,8 +151,6 @@ namespace Shone
         public static ulong ToULong(float d) => (ulong)d;
         public static float ToFloat(float d) => d;
         public static double ToDouble(float d) => d;
-        public static decimal ToDecimal(float d) => (decimal)d;
-        public static Real ToReal(float d) => d;
 
         public static bool ToBool(double d) => d != 0;
         public static byte ToByte(double d) => (byte)d;
@@ -185,37 +164,10 @@ namespace Shone
         public static ulong ToULong(double d) => (ulong)d;
         public static float ToFloat(double d) => (float)d;
         public static double ToDouble(double d) => d;
-        public static decimal ToDecimal(double d) => (decimal)d;
-        public static Real ToReal(double d) => d;
 
         public static bool ToBool(decimal d) => d != 0;
-        public static byte ToByte(decimal d) => (byte)d;
-        public static sbyte ToSByte(decimal d) => (sbyte)d;
-        public static short ToShort(decimal d) => (short)d;
-        public static ushort ToUShort(decimal d) => (ushort)d;
-        public static char ToChar(decimal d) => (char)d;
-        public static int ToInt(decimal d) => (int)d;
-        public static uint ToUInt(decimal d) => (uint)d;
-        public static long ToLong(decimal d) => (long)d;
-        public static ulong ToULong(decimal d) => (ulong)d;
-        public static float ToFloat(decimal d) => (float)d;
-        public static double ToDouble(decimal d) => (double)d;
         public static decimal ToDecimal(decimal d) => d;
-        public static Real ToReal(decimal d) => Real.From((double)d);
 
-        public static bool ToBool(Real r) => r.Data != 0;
-        public static byte ToByte(Real r) => (byte)r.Data;
-        public static sbyte ToSByte(Real r) => (sbyte)r.Data;
-        public static short ToShort(Real r) => (short)r.Data;
-        public static ushort ToUShort(Real r) => (ushort)r.Data;
-        public static char ToChar(Real r) => (char)r.Data;
-        public static int ToInt(Real r) => (int)r.Data;
-        public static uint ToUInt(Real r) => (uint)r.Data;
-        public static long ToLong(Real r) => (long)r.Data;
-        public static ulong ToULong(Real r) => (ulong)r.Data;
-        public static float ToFloat(Real r) => (float)r.Data;
-        public static double ToDouble(Real r) => r.Data;
-        public static decimal ToDecimal(Real r) => (decimal)r.Data;
         public static Real ToReal(Real r) => r;
     }
 }

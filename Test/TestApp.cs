@@ -11,27 +11,32 @@ namespace Test
         static void Main(string[] args)
         {
             //MyCode.AutoGenerate();
+            TestAllTypes();
+            //Console.WriteLine(Math<bool>.PI);
+            Console.ReadKey();
+        }
 
+        static void TestAllTypes()
+        {
             var mt = typeof(Math<>);
-            foreach (var t in MyType.NumberSet)
+            foreach (var t in MyType.WholeNumSet)
             {
                 Console.WriteLine(t);
-                try
+                var fs = mt.MakeGenericType(t).GetFields(MyReflection.PublicStatic);
+                foreach (var f in fs)
                 {
-                    var fs = mt.MakeGenericType(t).GetFields(MyReflection.PublicStatic);
-                    foreach (var f in fs)
+                    try
                     {
                         var o = f.GetValue(null);
                         if (o is Delegate d) continue;
-                        Console.WriteLine($"\t{f.Name} = {o}");
+                        Console.WriteLine($"\t{f.Name} = {(o == null ? "...................." : o.ToString())}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"\t{f.Name} = !!!!!!!!!!!!!!!!!!{ex.Message}");
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
             }
-            Console.ReadKey();
         }
     }
 }

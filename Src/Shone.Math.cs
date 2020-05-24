@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Collections.Generic;
 
 //All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
@@ -150,65 +151,37 @@ namespace Shone
         static Math()
         {
             var fields = typeof(Math<T>).GetFields(MyReflection.PublicStatic);
-            var bFloat = NumType == MyType.Float;
-            if (bFloat)
+            if (NumType == MyType.Float) AddMethodConsts(typeof(MathF), fields);
+            AddMethodConsts(typeof(Math), fields);
+            AddMethodConsts(NumType, fields);
+            foreach (var pair in MyType.ExtensionSet)
             {
-                var mf = typeof(MathF);
-                AddMethods(mf, fields);
-                AddConsts(mf, fields);
+                AddMethodConsts(pair.Value, fields);
+            }
+            AddMethodConsts(typeof(MyOperator), fields, false);
+
+            foreach (var type in MyType.ConvertSet)
+            {
+                AddConverts(type, fields);
             }
 
-            var mathType = typeof(Math);
-            AddMethods(mathType, fields);
-            AddConsts(mathType, fields);
-
-            var bReal = NumType == MyType.Real;
-            var bDecimal = NumType == MyType.Decimal;
-            if (bReal)
+            if (NumType == MyType.Real) return;
+            if (NumType == MyType.Bool) MaxValue = FromInt(1);
+            if (!MyType.HasOneSet.Contains(NumType)) One = FromInt(1);
+            if (!MyType.UnsignedSet.Contains(NumType)) MinusOne = FromInt(-1);
+            if (!MyType.IEEESet.Contains(NumType))
             {
-                AddMethods(typeof(MyReal), fields);
-            }
-            else if (bDecimal)
-            {
-                var mf = typeof(DecimalMath.DecimalEx);
-                AddMethods(mf, fields);
-                AddConsts(mf, fields);
-            }
-            AddMethods(NumType, fields);
-            AddConsts(NumType, fields);
-
-            AddMethods(typeof(MyOperator), fields);
-            AddConverts(typeof(MyConvert), fields);
-
-            if (NumType == MyType.Bool)
-            {
-                Math<bool>.MaxValue = Math<bool>.One = true;
-            }
-            else if (!bReal)
-            {
-                if (!bDecimal)
+                NegativeInfinity = MinValue;
+                PositiveInfinity = MaxValue;
+                if (NumType != MyType.Decimal)
                 {
-                    One = FromInt(1);
-                    if (MyType.SignedSet.Contains(NumType))
-                    {
-                        MinusOne = FromInt(-1);
-                    }
-                }
-
-                if (NumType != MyType.Double)
-                {
-                    NegativeInfinity = MinValue;
-                    PositiveInfinity = MaxValue;
-                    if (!bFloat && !bDecimal)
-                    {
-                        PI = FromDouble(Math.PI);
-                        E = FromDouble(Math.E);
-                    }
-                    var d180 = FromInt(180);
-                    RadFactor = Divide(PI, d180);
-                    DegFactor = Divide(d180, PI);
+                    PI = FromDouble(Math.PI);
+                    E = FromDouble(Math.E);
                 }
             }
+            var d180 = FromInt(180);
+            RadFactor = Divide(PI, d180);
+            DegFactor = Divide(d180, PI);
         }
 
         private static void AddConsts(Type extension, FieldInfo[] fields)
@@ -219,15 +192,13 @@ namespace Shone
                 var name = f.Name;
                 if (MyReflection.ConstNameMaps.ContainsKey(name))
                     name = MyReflection.ConstNameMaps[name];
-                if (f.FieldType == NumType)
+                if (f.FieldType != NumType) continue;
+                foreach (var field in fields)
                 {
-                    foreach (var field in fields)
+                    if (field.Name == name)
                     {
-                        if (field.Name == name)
-                        {
-                            field.SetValue(null, (T)f.GetValue(null));
-                            break;
-                        }
+                        field.SetValue(null, (T)f.GetValue(null));
+                        break;
                     }
                 }
             }
@@ -250,7 +221,8 @@ namespace Shone
                 }
             }
         }
-        private static void AddMethods(Type extension, FieldInfo[] fields)
+
+        private static void AddMethodConsts(Type extension, FieldInfo[] fields, bool addConst = true)
         {
             var ms = extension.GetMethods(MyReflection.PublicStatic);
             foreach (var m in ms)
@@ -280,25 +252,32 @@ namespace Shone
                     setDelegate(fields, name, m);
                 }
             }
+
+            if (addConst) AddConsts(extension, fields);
         }
+
         private static void AddConverts(Type extension, FieldInfo[] fields)
         {
             var ms = extension.GetMethods(MyReflection.PublicStatic);
-            var toName = "To" + MyType.ShortNames[NumType];
+            var toName = "To" + NumType.ShortName();
             foreach (var m in ms)
             {
                 var paras = m.GetParameters();
                 if (paras.Length != 1) continue;
-
                 var name = m.Name;
-                var from = paras[0].ParameterType;
-                if (from == NumType)
+                var fromType = paras[0].ParameterType;
+                var toType = m.ReturnType;
+                var mtName = "To" + toType.ShortName();
+                if (name == "op_Implicit" || name == "op_Explicit" || name == mtName || name == toType.Name)
                 {
-                    setDelegate(fields, name, m);
-                }
-                if (m.ReturnType == NumType && name == toName)
-                {
-                    setDelegate(fields, "From" + MyType.ShortNames[from], m);
+                    if (fromType == NumType)
+                    {
+                        setDelegate(fields, mtName, m);
+                    }
+                    if (toType == NumType && mtName == toName)
+                    {
+                        setDelegate(fields, "From" + fromType.ShortName(), m);
+                    }
                 }
             }
         }
