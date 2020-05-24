@@ -79,6 +79,7 @@ namespace Shone
 
         public static void RegisterNumExtension(Type numType, string shortName, bool hasOne = false, bool unSinged = false, bool isIEEE = false, Type extension = null)
         {
+            WholeNumSet.Add(numType);
             if (shortName != null) ShortNames[numType] = shortName;
             if (hasOne) HasOneSet.Add(numType);
             if (unSinged) UnsignedSet.Add(numType);
@@ -100,5 +101,29 @@ namespace Shone
         {
             return AliaNames.ContainsKey(type) ? ShortNames[type] : type.Name;
         }
+
+        public static void TestAllTypes()
+        {
+            var mt = typeof(Math<>);
+            foreach (var t in WholeNumSet)
+            {
+                Console.WriteLine(t);
+                var fs = mt.MakeGenericType(t).GetFields(MyReflection.PublicStatic);
+                foreach (var f in fs)
+                {
+                    try
+                    {
+                        var o = f.GetValue(null);
+                        if (o is Delegate d) continue;
+                        Console.WriteLine($"\t{f.Name} = {(o == null ? "...................." : o.ToString())}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"\t{f.Name} = !!!!!!!!!!!!!!!!!!{ex.Message}");
+                    }
+                }
+            }
+        }
+
     }
 }
