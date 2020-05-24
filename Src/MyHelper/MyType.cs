@@ -77,6 +77,11 @@ namespace Shone
         internal static HashSet<Type> UnsignedSet = new HashSet<Type> { Bool, Char, Byte, UShort, UInt, ULong };
         internal static HashSet<Type> IEEESet = new HashSet<Type> { Float, Double, Real };
 
+        public static void ReplaceNumExtension(Type numType, Type extension)
+        {
+            ExtensionSet[numType] = extension;
+        }
+
         public static void RegisterNumExtension(Type numType, string shortName, bool hasOne = false, bool unSinged = false, bool isIEEE = false, Type extension = null)
         {
             WholeNumSet.Add(numType);
