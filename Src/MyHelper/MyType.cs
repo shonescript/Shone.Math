@@ -115,11 +115,11 @@ namespace Shone
                     {
                         var o = f.GetValue(null);
                         if (o is Delegate d) continue;
-                        Console.WriteLine($"\t{f.Name} = {(o == null ? "...................." : o.ToString())}");
+                        Console.WriteLine($"\t{f.Name} = {(o == null ? "......" : o.ToString())}");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"\t{f.Name} = !!!!!!!!!!!!!!!!!!{ex.Message}");
+                        Console.WriteLine($"\t{f.Name} = ******{ex.Message}");
                     }
                 }
             }

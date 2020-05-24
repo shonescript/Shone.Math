@@ -167,8 +167,11 @@ namespace Shone
 
             if (NumType == MyType.Real) return;
             if (NumType == MyType.Bool) MaxValue = FromInt(1);
-            if (!MyType.HasOneSet.Contains(NumType)) One = FromInt(1);
-            if (!MyType.UnsignedSet.Contains(NumType)) MinusOne = FromInt(-1);
+            if (!MyType.HasOneSet.Contains(NumType))
+            {
+                One = FromInt(1);
+                if (!MyType.UnsignedSet.Contains(NumType)) MinusOne = FromInt(-1);
+            }
             if (!MyType.IEEESet.Contains(NumType))
             {
                 NegativeInfinity = MinValue;
@@ -195,11 +198,16 @@ namespace Shone
                 if (f.FieldType != NumType) continue;
                 foreach (var field in fields)
                 {
-                    if (field.Name == name)
+                    if (field.FieldType != NumType || field.Name != name) continue;
+                    try
                     {
                         field.SetValue(null, (T)f.GetValue(null));
-                        break;
                     }
+                    catch
+                    {
+                        throw new Exception($"Cannot init the field {NumType.Name}.{name} from: {f}");
+                    }
+                    break;
                 }
             }
         }
@@ -215,7 +223,7 @@ namespace Shone
                     }
                     catch
                     {
-                        throw new Exception($"Cannot init the method {name}");
+                        throw new Exception($"Cannot init the method {NumType.Name}.{name} from {m}");
                     }
                     break;
                 }
