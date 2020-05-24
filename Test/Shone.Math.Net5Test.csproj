@@ -14,6 +14,10 @@
     <OutputPath>C:\Hjx\Shone2020\Shone.Math\</OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="TestApp.cs" />
   </ItemGroup>
