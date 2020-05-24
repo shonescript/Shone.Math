@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Shone.Math/1.0.7": {
+        "runtime": {
+          "Shone.Math.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Shone.Math/1.0.7": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

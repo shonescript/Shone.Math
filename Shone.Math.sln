@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shone.Math.Net5", "Shone.Math.Net5.csproj", "{3DA9D9F9-79D0-496D-A9B5-4139EC715833}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shone.Math.Net5", "Src\Shone.Math.Net5.csproj", "{3DA9D9F9-79D0-496D-A9B5-4139EC715833}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shone.Math.Net5Test", "Test\Shone.Math.Net5Test.csproj", "{B3E0E913-BC49-4D3B-95F0-35E843149974}"
 EndProject
