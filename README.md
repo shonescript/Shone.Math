@@ -1,5 +1,5 @@
-# Shone.Math .NET5 library
-## An elementary math library supporting generic Math\<T\> and Rational/Irrational number for .NET 5
+# Shone.Math .NETCore library
+## An elementary math library supporting generic Math\<T\> and Rational/Irrational number for .NETCore 3.1/5.0
     
 Create a dotnet generic-types operation library is never easy. 
 
