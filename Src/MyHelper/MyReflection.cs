@@ -11,6 +11,9 @@ namespace Shone
     public static class MyReflection
     {
         public static BindingFlags PublicStatic = BindingFlags.Public | BindingFlags.Static;
+        public static BindingFlags NonPublicStatic = BindingFlags.NonPublic | BindingFlags.Static;
+        public static BindingFlags PublicInstance = BindingFlags.Public | BindingFlags.Instance;
+        public static BindingFlags NonPublicInstance = BindingFlags.NonPublic | BindingFlags.Instance;
 
         public static Dictionary<string, string> ConstNameMaps = new Dictionary<string, string>{
         { "Pi", "PI" }};

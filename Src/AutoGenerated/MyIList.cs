@@ -1,0 +1,123 @@
+using System;
+using System.Collections.Generic;
+
+//All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
+namespace Shone
+{
+    /// <summary>
+    /// Helper class auto gerated for generic IList<T>  extension
+    /// </summary>
+    public static partial class MyIList
+    {
+        public static bool[] IsNormal<T>(this IList<T> a1) => Func(a1, Math<T>.IsNormal);
+        public static bool[] IsSubnormal<T>(this IList<T> a1) => Func(a1, Math<T>.IsSubnormal);
+        public static bool[] IsFinite<T>(this IList<T> a1) => Func(a1, Math<T>.IsFinite);
+        public static bool[] IsNaN<T>(this IList<T> a1) => Func(a1, Math<T>.IsNaN);
+        public static bool[] IsInfinity<T>(this IList<T> a1) => Func(a1, Math<T>.IsInfinity);
+        public static bool[] IsPositiveInfinity<T>(this IList<T> a1) => Func(a1, Math<T>.IsPositiveInfinity);
+        public static bool[] IsNegativeInfinity<T>(this IList<T> a1) => Func(a1, Math<T>.IsNegativeInfinity);
+        public static bool[] IsNegative<T>(this IList<T> a1) => Func(a1, Math<T>.IsNegative);
+        public static T[] Negate<T>(this IList<T> a1) => Func(a1, Math<T>.Negate);
+        public static T[] Increase<T>(this IList<T> a1) => Func(a1, Math<T>.Increase);
+        public static T[] Decrease<T>(this IList<T> a1) => Func(a1, Math<T>.Decrease);
+        public static T[] Comp<T>(this IList<T> a1) => Func(a1, Math<T>.Comp);
+        public static bool[] Not<T>(this IList<T> a1) => Func(a1, Math<T>.Not);
+        public static T[] Add<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Add);
+        public static T[] Add<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Add);
+        public static T[] Subtract<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Subtract);
+        public static T[] Subtract<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Subtract);
+        public static T[] Multiply<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Multiply);
+        public static T[] Multiply<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Multiply);
+        public static T[] Divide<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Divide);
+        public static T[] Divide<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Divide);
+        public static T[] Modulus<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Modulus);
+        public static T[] Modulus<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Modulus);
+        public static T[] BitAnd<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.BitAnd);
+        public static T[] BitAnd<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.BitAnd);
+        public static T[] BitOr<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.BitOr);
+        public static T[] BitOr<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.BitOr);
+        public static T[] BitXOr<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.BitXOr);
+        public static T[] BitXOr<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.BitXOr);
+        public static T[] LeftShift<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.LeftShift);
+        public static T[] LeftShift<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.LeftShift);
+        public static T[] RightShif<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.RightShif);
+        public static T[] RightShif<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.RightShif);
+        public static bool[] And<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.And);
+        public static bool[] And<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.And);
+        public static bool[] Or<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Or);
+        public static bool[] Or<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Or);
+        public static bool[] LessThan<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.LessThan);
+        public static bool[] LessThan<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.LessThan);
+        public static bool[] GreatThan<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.GreatThan);
+        public static bool[] GreatThan<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.GreatThan);
+        public static bool[] LessEqual<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.LessEqual);
+        public static bool[] LessEqual<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.LessEqual);
+        public static bool[] GreatEqual<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.GreatEqual);
+        public static bool[] GreatEqual<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.GreatEqual);
+        public static bool[] Equal<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Equal);
+        public static bool[] Equal<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Equal);
+        public static bool[] NotEqual<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.NotEqual);
+        public static bool[] NotEqual<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.NotEqual);
+        public static bool[] ToBool<T>(this IList<T> a1) => Func(a1, Math<T>.ToBool);
+        public static char[] ToChar<T>(this IList<T> a1) => Func(a1, Math<T>.ToChar);
+        public static sbyte[] ToSByte<T>(this IList<T> a1) => Func(a1, Math<T>.ToSByte);
+        public static byte[] ToByte<T>(this IList<T> a1) => Func(a1, Math<T>.ToByte);
+        public static short[] ToShort<T>(this IList<T> a1) => Func(a1, Math<T>.ToShort);
+        public static ushort[] ToUShort<T>(this IList<T> a1) => Func(a1, Math<T>.ToUShort);
+        public static int[] ToInt<T>(this IList<T> a1) => Func(a1, Math<T>.ToInt);
+        public static uint[] ToUInt<T>(this IList<T> a1) => Func(a1, Math<T>.ToUInt);
+        public static long[] ToLong<T>(this IList<T> a1) => Func(a1, Math<T>.ToLong);
+        public static ulong[] ToULong<T>(this IList<T> a1) => Func(a1, Math<T>.ToULong);
+        public static float[] ToFloat<T>(this IList<T> a1) => Func(a1, Math<T>.ToFloat);
+        public static double[] ToDouble<T>(this IList<T> a1) => Func(a1, Math<T>.ToDouble);
+        public static decimal[] ToDecimal<T>(this IList<T> a1) => Func(a1, Math<T>.ToDecimal);
+        public static Real[] ToReal<T>(this IList<T> a1) => Func(a1, Math<T>.ToReal);
+        public static int[] Sign<T>(this IList<T> a1) => Func(a1, Math<T>.Sign);
+        public static T[] Sqrt<T>(this IList<T> a1) => Func(a1, Math<T>.Sqrt);
+        public static T[] Cbrt<T>(this IList<T> a1) => Func(a1, Math<T>.Cbrt);
+        public static T[] Exp<T>(this IList<T> a1) => Func(a1, Math<T>.Exp);
+        public static T[] Pow<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Pow);
+        public static T[] Pow<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Pow);
+        public static T[] Log<T>(this IList<T> a1) => Func(a1, Math<T>.Log);
+        public static T[] Log2<T>(this IList<T> a1) => Func(a1, Math<T>.Log2);
+        public static T[] Log10<T>(this IList<T> a1) => Func(a1, Math<T>.Log10);
+        public static T[] Logx<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Logx);
+        public static T[] Logx<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Logx);
+        public static T[] Floor<T>(this IList<T> a1) => Func(a1, Math<T>.Floor);
+        public static T[] Ceiling<T>(this IList<T> a1) => Func(a1, Math<T>.Ceiling);
+        public static T[] Round<T>(this IList<T> a1) => Func(a1, Math<T>.Round);
+        public static T[] Truncate<T>(this IList<T> a1) => Func(a1, Math<T>.Truncate);
+        public static T[] Min<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Min);
+        public static T[] Min<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Min);
+        public static T[] Max<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Max);
+        public static T[] Max<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Max);
+        public static T[] Sin<T>(this IList<T> a1) => Func(a1, Math<T>.Sin);
+        public static T[] Cos<T>(this IList<T> a1) => Func(a1, Math<T>.Cos);
+        public static T[] Tan<T>(this IList<T> a1) => Func(a1, Math<T>.Tan);
+        public static T[] Sinh<T>(this IList<T> a1) => Func(a1, Math<T>.Sinh);
+        public static T[] Cosh<T>(this IList<T> a1) => Func(a1, Math<T>.Cosh);
+        public static T[] Tanh<T>(this IList<T> a1) => Func(a1, Math<T>.Tanh);
+        public static T[] Asin<T>(this IList<T> a1) => Func(a1, Math<T>.Asin);
+        public static T[] Acos<T>(this IList<T> a1) => Func(a1, Math<T>.Acos);
+        public static T[] Atan<T>(this IList<T> a1) => Func(a1, Math<T>.Atan);
+        public static T[] Atan2<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.Atan2);
+        public static T[] Atan2<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.Atan2);
+        public static T[] Asinh<T>(this IList<T> a1) => Func(a1, Math<T>.Asinh);
+        public static T[] Acosh<T>(this IList<T> a1) => Func(a1, Math<T>.Acosh);
+        public static T[] Atanh<T>(this IList<T> a1) => Func(a1, Math<T>.Atanh);
+        public static T[] SinDeg<T>(this IList<T> a1) => Func(a1, Math<T>.SinDeg);
+        public static T[] CosDeg<T>(this IList<T> a1) => Func(a1, Math<T>.CosDeg);
+        public static T[] TanDeg<T>(this IList<T> a1) => Func(a1, Math<T>.TanDeg);
+        public static T[] SinhDeg<T>(this IList<T> a1) => Func(a1, Math<T>.SinhDeg);
+        public static T[] CoshDeg<T>(this IList<T> a1) => Func(a1, Math<T>.CoshDeg);
+        public static T[] TanhDeg<T>(this IList<T> a1) => Func(a1, Math<T>.TanhDeg);
+        public static T[] AsinDeg<T>(this IList<T> a1) => Func(a1, Math<T>.AsinDeg);
+        public static T[] AcosDeg<T>(this IList<T> a1) => Func(a1, Math<T>.AcosDeg);
+        public static T[] AtanDeg<T>(this IList<T> a1) => Func(a1, Math<T>.AtanDeg);
+        public static T[] AtanDeg2<T>(this IList<T> a1, IList<T> a2) => Func(a1, a2, Math<T>.AtanDeg2);
+        public static T[] AtanDeg2<T>(this IList<T> a1, T a2) => Func(a1, a2, Math<T>.AtanDeg2);
+        public static T[] AsinhDeg<T>(this IList<T> a1) => Func(a1, Math<T>.AsinhDeg);
+        public static T[] AcoshDeg<T>(this IList<T> a1) => Func(a1, Math<T>.AcoshDeg);
+        public static T[] AtanhDeg<T>(this IList<T> a1) => Func(a1, Math<T>.AtanhDeg);
+    }
+}

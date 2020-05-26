@@ -16,8 +16,8 @@ namespace Shone
         {
             GenerateNumCode();
             GenerateRefCode();
-            GenerateArrayCode(false);
-            GenerateArrayCode(true);
+            GenerateIListCode(false);
+            GenerateIListCode(true);
             GenerateSpanCode(false, false);
             GenerateSpanCode(false, true);
             GenerateSpanCode(true, false);
@@ -86,7 +86,7 @@ namespace Shone
                     if (i > 0) sb.Append(", ");
                     sb.Append($"{TStr(p, name, true)} a{i + 1}");
                 }
-                sb.Append($") => Math<T>.{name}(");
+                sb.Append($") where T : unmanaged => Math<T>.{name}(");
                 for (int i = 0; i < n; i++)
                 {
                     if (i > 0) sb.Append(", ");
@@ -123,7 +123,7 @@ namespace Shone
                     if (i > 0) sb.Append(", ");
                     sb.Append($"{TStr(p, name, true)} a{i + 1}");
                 }
-                sb.Append($") where T : struct {{ a1 = Math<T>.{name}(");
+                sb.Append($") where T : unmanaged {{ a1 = Math<T>.{name}(");
                 for (int i = 0; i < n; i++)
                 {
                     if (i > 0) sb.Append(", ");
@@ -133,45 +133,48 @@ namespace Shone
             });
         }
 
-        static void GenerateArrayCode(bool bModify)
+        static void GenerateIListCode(bool bModify)
         {
-            var tname = "MyArray";
+            var tname = "MyIList";
             if (bModify) tname += "_";
             GenCode(tname + ".cs", @"using System;
+using System.Collections.Generic;
 
 //All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
 {
     /// <summary>
-    /// Helper class auto gerated for generic array T[] " + (bModify ? "modifying " : " ") + @"extension
+    /// Helper class auto gerated for generic IList<T> " + (bModify ? "modifying " : " ") + @"extension
     /// </summary>
     public static partial class " + tname + @"
     {
 ", (sb, name, d) =>
             {
                 var method = d.Method;
-                AddArrayMethod(sb, name, method, bModify, false);
-                AddArrayMethod(sb, name, method, bModify, true);
+                AddIListMethod(sb, name, method, bModify, false);
+                AddIListMethod(sb, name, method, bModify, true);
             });
         }
-        static void AddArrayMethod(StringBuilder sb, string name, MethodInfo m, bool bModify, bool bSpecial)
+        static void AddIListMethod(StringBuilder sb, string name, MethodInfo m, bool bModify, bool bSpecial)
         {
             var rt = m.ReturnType;
             var paras = m.GetParameters();
             if (bModify && (name.StartsWith("To") || rt != paras[0].ParameterType)) return;
             var n = paras.Length;
             if (bSpecial && n != 2) return;
-            sb.Append($"        public static {TStr(rt, name)}[] {(bModify ? name + "_" : name)}<T>(this ");
+            if (bModify)
+                sb.Append($"        public static IList<{TStr(rt, name)}> {name}_<T>(this ");
+            else
+                sb.Append($"        public static {TStr(rt, name)}[] {name}<T>(this ");
             for (int i = 0; i < n; i++)
             {
                 var p = paras[i].ParameterType;
-                var s = "[]";
-                if (i > 0)
-                {
-                    sb.Append(", ");
-                    if (bSpecial) s = "";
-                }
-                sb.Append($"{TStr(p, name, true)}{s} a{i + 1}");
+                var b = i > 0;
+                if (b) sb.Append(", ");
+                if (bSpecial && b)
+                    sb.Append($"{TStr(p, name, true)} a{i + 1}");
+                else
+                    sb.Append($"IList<{TStr(p, name, true)}> a{i + 1}");
             }
             sb.Append($") => Func{(bModify ? "_" : "")}(");
             for (int i = 0; i < n; i++)
@@ -187,7 +190,7 @@ namespace Shone
             var tname = (bRead ? "ReadOnly" : "") + (bMemory ? "Memory" : "Span");
             var mname = "My" + tname;
             if (!bRead) mname += "_";
-            GenCode(tname + ".cs", @"using System;
+            GenCode(mname + ".cs", @"using System;
 
 //All rights reserved to Shone, author of Shone.Math (https://github.com/shonescript/Shone.Math).
 namespace Shone
@@ -225,7 +228,7 @@ namespace Shone
                 else
                     sb.Append($"{tname}<{TStr(p, name, true)}> a{i + 1}");
             }
-            sb.Append($") => Func{(bRead ? "" : "_")}(");
+            sb.Append($") where T : unmanaged => Func{(bRead ? "" : "_")}(");
             for (int i = 0; i < n; i++)
             {
                 sb.Append($"a{i + 1}");

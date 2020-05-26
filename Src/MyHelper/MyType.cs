@@ -104,7 +104,7 @@ namespace Shone
         }
         public static string AliaName(this Type type)
         {
-            return AliaNames.ContainsKey(type) ? ShortNames[type] : type.Name;
+            return AliaNames.ContainsKey(type) ? AliaNames[type] : type.Name;
         }
 
         public static void TestAllTypes()
